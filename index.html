@@ -8,12 +8,42 @@
 </head>
 <body>
   <div id="slideshow">
-    <!-- Slides worden hier door presentator.js geplaatst -->
+    <div class="slide active">Welkom bij de puntenanimatie!</div>
+    <div class="slide">Nederland: 12 punten</div>
+    <div class="slide">België: 8 punten</div>
+    <div class="slide">Duitsland: 10 punten</div>
+    <div class="slide">Bedankt voor het kijken!</div>
   </div>
-  <div class="controls">
-    <button id="prev">Vorige</button>
-    <button id="next">Volgende</button>
-  </div>
-  <script src="presentator.js"></script>
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    let current = 0;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+    }
+
+    function nextSlide() {
+      current = (current + 1) % slides.length;
+      showSlide(current);
+    }
+
+    function prevSlide() {
+      current = (current - 1 + slides.length) % slides.length;
+      showSlide(current);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' || e.key === ' ' || e.key === 'ArrowRight') {
+        nextSlide();
+        e.preventDefault();
+      }
+      if (e.key === 'ArrowLeft') {
+        prevSlide();
+        e.preventDefault();
+      }
+    });
+  </script>
 </body>
 </html>
