@@ -1,196 +1,195 @@
-let presentatorSlides = [];
-let currentSlideIndex = 0;
-let juryData = [];
-let televoteData = {};
-let scoreTotaal = {};
-let ALL_SCHOOLS = [
-  "ATKA", "Antwerpen", "Arnhem", "Brussel", "Den Bosch",
-  "Filmacademie", "Gent", "Leuven", "Maastricht",
-  "Rotterdam", "Tilburg", "Utrecht"
-];
+// Zet hier het pad naar je punten.json (aanpassen indien nodig)
+const DATA_PATH = 'punten.json';
 
-// Laad data en start
-fetch("punten.json")
-  .then(r => r.json())
-  .then(data => {
-    juryData = data.jury;
-    televoteData = data.televote;
-    setupPresentatorSlides(juryData, televoteData);
-    showPresentatorSlide(0);
-  });
+// Hoeveel jury's tussen elke tussenstand? Bijvoorbeeld: 3 = na elke 3 jury's een tussenstand.
+const TUSSENSTAND_INTERVAL = 3;
 
-// ---- SLIDES BOUWEN ----
-function setupPresentatorSlides(juryData, televoteData) {
-  presentatorSlides = [];
-  scoreTotaal = {};
-  let totaalJury = juryData.length;
-  const halfJuryIndex = Math.floor(totaalJury / 2) - 1;
-  let schoolVolgorde = [...ALL_SCHOOLS];
+let data;
+let slides = [];
+let currentSlide = 0;
 
-  // --- Per vakjury ---
-  juryData.forEach((jury, idx) => {
-    // 1. Slide: Wie is de volgende jury?
-    presentatorSlides.push(createNextJurySlide(jury, idx));
+// Utility: Sorteer punten van hoog naar laag (behalve 0)
+function sorteerPunten(punten) {
+  return Object.entries(punten)
+    .filter(([school, punten]) => punten > 0)
+    .sort((a, b) => b[1] - a[1]);
+}
 
-    // 2. Slide: Alle punten van deze jury
-    presentatorSlides.push(createJuryPointsSlide(jury, idx));
-
-    // Update score na deze jury
-    Object.entries(jury.punten).forEach(([school, p]) => {
-      scoreTotaal[school] = (scoreTotaal[school] || 0) + (p || 0);
+// Utility: Bereken totaalscore per school tot een bepaald jury-index
+function berekenTussenstand(juryArray, totIndex, televote = null) {
+  const totaal = {};
+  // Init
+  juryArray.forEach(j => Object.keys(j.punten).forEach(s => (totaal[s] = 0)));
+  // Jury's optellen
+  juryArray.slice(0, totIndex).forEach(j => {
+    Object.entries(j.punten).forEach(([school, punten]) => {
+      totaal[school] += punten;
     });
-    // Tussenstand na de helft van de jury's
-    if (idx === halfJuryIndex) {
-      presentatorSlides.push(createTussenstandSlide(scoreTotaal, "Tussenstand na de helft van de jury’s"));
+  });
+  // Televote toevoegen indien nodig
+  if (televote) Object.entries(televote).forEach(([s, p]) => (totaal[s] += p));
+  // Sorteren
+  return Object.entries(totaal).sort((a, b) => b[1] - a[1]);
+}
+
+function maakJurySlides(juryArray) {
+  juryArray.forEach((jury, i) => {
+    // 1. Intro-slide volgende vakjury
+    slides.push({
+      type: 'jury-intro',
+      juryIndex: i,
+      school: jury.school,
+      presentator: jury.presentator
+    });
+    // 2. Slide met punten van deze jury
+    slides.push({
+      type: 'jury-punten',
+      juryIndex: i,
+      punten: sorteerPunten(jury.punten)
+    });
+    // 3. Tussenstand indien nodig
+    if ((i + 1) % TUSSENSTAND_INTERVAL === 0 && i < juryArray.length - 1) {
+      slides.push({
+        type: 'tussenstand',
+        totJury: i + 1, // tot en met deze jury
+      });
     }
   });
+}
 
-  // --- Tussenstand voor televotes (na alle jury’s) ---
-  presentatorSlides.push(createTussenstandSlide(scoreTotaal, "Tussenstand vóór de televotes"));
-
-  // --- Televotes ---
-  // Bereken volgorde: wie krijgt als eerste televotepunten (laagste score eerst, zoals ESF)
-  let huidigeScore = {...scoreTotaal};
-  let puntenNieuw = {};
-  let huidigeVolgorde = Object.keys(huidigeScore)
-    .map(school => ({
+function maakTelevoteSlides(televote, juryArray) {
+  // Eindstand vóór televote
+  let tussenstand = berekenTussenstand(juryArray, juryArray.length);
+  // Televote per school
+  Object.keys(televote).forEach(school => {
+    // Slide: huidige punten + wat heeft deze school nodig voor 1e plek
+    const huidig = tussenstand.find(([s]) => s === school)[1];
+    const hoogste = Math.max(...tussenstand.map(([, p]) => p));
+    const verschil = Math.max(0, hoogste - huidig + 1);
+    slides.push({
+      type: 'televote-voor',
       school,
-      totaal: huidigeScore[school] || 0
-    }))
-    .sort((a, b) => b.totaal - a.totaal)
-    .map(entry => entry.school);
-
-  const televoteVolgorde = Object.keys(huidigeScore)
-    .map(school => ({
+      huidig,
+      verschil
+    });
+    // Slide: nieuwe punten na televote
+    const nieuw = huidig + televote[school];
+    slides.push({
+      type: 'televote-na',
       school,
-      juryTotaal: huidigeScore[school] || 0
-    }))
-    .sort((a, b) => a.juryTotaal - b.juryTotaal)
-    .map(entry => entry.school);
-
-  televoteVolgorde.forEach((school, idx) => {
-    // 1. Slide: Huidige punten + wat heeft deze school nodig voor 1e plek?
-    presentatorSlides.push(createTelevoteVoorSlide(school, huidigeScore, televoteData, huidigeVolgorde));
-
-    // 2. Slide: Nieuwe punten na deze televote (score geüpdatet)
-    let punten = televoteData[school] || 0;
-    huidigeScore[school] = (huidigeScore[school] || 0) + punten;
-    huidigeVolgorde = Object.keys(huidigeScore)
-      .map(school => ({school, totaal: huidigeScore[school]}))
-      .sort((a, b) => b.totaal - a.totaal)
-      .map(e => e.school);
-
-    presentatorSlides.push(createTussenstandSlide(huidigeScore, `Nieuwe stand na televote voor ${school}`));
+      nieuw,
+      televote: televote[school]
+    });
+    // Tussenstand bijwerken voor volgende ronde
+    tussenstand = tussenstand.map(([s, p]) => [s, s === school ? nieuw : p]);
   });
-
-  // --- Eindstand ---
-  presentatorSlides.push(createTussenstandSlide(huidigeScore, "Eindstand"));
+  // Totale eindstand slide
+  slides.push({
+    type: 'tussenstand-eind',
+    televote: true
+  });
 }
 
-// ---- SLIDE BUILDERS ----
+// Render functies per slide-type
+function renderSlide(slide) {
+  const el = document.getElementById('slideshow');
+  el.innerHTML = ''; // leegmaken
 
-function createNextJurySlide(jury, idx) {
-  const slide = document.createElement("div");
-  slide.className = "presentator-slide next-jury";
-  slide.innerHTML = `
-    <h2>Volgende vakjury: <span style="color:#1976d2">${jury.school}</span></h2>
-    ${jury.presentator ? `
-      <div>
-        <b>Spreker:</b> ${jury.presentator.naam}<br>
-        <em>${jury.presentator.bio || ''}</em><br>
-        ${jury.presentator.foto ? `<img src="${jury.presentator.foto}" height="100">` : ''}
+  if (slide.type === 'jury-intro') {
+    const p = slide.presentator;
+    el.innerHTML = `
+      <div class="jury-intro">
+        <img src="${p.foto}" alt="${p.naam}" class="presentator-foto">
+        <h2>Volgende vakjury: ${slide.school}</h2>
+        <h3>${p.naam}</h3>
+        <p>${p.bio}</p>
       </div>
-    ` : '<em>Geen spreker-informatie bekend</em>'}
-    <hr>
-    <div style="opacity:0.6">Klik door om de punten van deze jury te tonen.</div>
-  `;
-  return slide;
-}
-
-function createJuryPointsSlide(jury, idx) {
-  const slide = document.createElement("div");
-  slide.className = "presentator-slide jury-points";
-  slide.innerHTML = `
-    <h2>Punten van ${jury.school}</h2>
-    <ul>
-      ${Object.entries(jury.punten)
-        .sort((a, b) => b[1] - a[1])
-        .map(([school, punten]) =>
-          `<li><b>${school}</b>: <span style="color:#388e3c;font-weight:bold">${punten}</span></li>`
-        ).join('')}
-    </ul>
-    <hr>
-    <div style="opacity:0.6">Klik door voor de volgende jury.</div>
-  `;
-  return slide;
-}
-
-function createTussenstandSlide(scores, titel = "Tussenstand") {
-  // Maak gesorteerde lijst met rangnummers
-  const sorted = Object.keys(scores)
-    .map(school => ({
-      school,
-      totaal: scores[school] || 0
-    }))
-    .sort((a, b) => b.totaal - a.totaal)
-    .map((entry, i) =>
-      `<tr>
-         <td style="text-align:right;padding-right:0.6em;"><b>${(i+1).toString().padStart(2,'0')}</b></td>
-         <td><b>${entry.school}</b></td>
-         <td style="text-align:right"><b>${entry.totaal}</b></td>
-       </tr>`
-    ).join('');
-  const slide = document.createElement("div");
-  slide.className = "presentator-slide tussenstand";
-  slide.innerHTML = `
-    <h2>${titel}</h2>
-    <table style="font-size:1.2em">${sorted}</table>
-    <hr>
-    <div style="opacity:0.6">Klik door voor de volgende stap.</div>
-  `;
-  return slide;
-}
-
-function createTelevoteVoorSlide(school, scores, televoteData, huidigeVolgorde) {
-  const currentScore = scores[school] || 0;
-  const maxScore = Math.max(...Object.values(scores));
-  const koploper = Object.entries(scores).find(([k, v]) => v === maxScore)?.[0];
-  const puntenNodig = (koploper !== school) ? (maxScore - currentScore + 1) : 0;
-  const kanNogWinnen = (currentScore + televoteData[school]) > maxScore;
-  let uitleg = "";
-  if (koploper === school) {
-    uitleg = `<b>${school}</b> is nu koploper!`;
-  } else if (puntenNodig > televoteData[school]) {
-    uitleg = `<span style="color:#b71c1c"><b>${school}</b> kan niet meer winnen (maximaal ${televoteData[school]} te verdienen, minimaal ${puntenNodig} nodig).</span>`;
-  } else {
-    uitleg = `<b>${school}</b> heeft nog ${puntenNodig} punt${puntenNodig===1?'':'en'} nodig om koploper ${koploper} te passeren.`;
+    `;
   }
-  const slide = document.createElement("div");
-  slide.className = "presentator-slide televote-voor";
-  slide.innerHTML = `
-    <h2>Televote voor <b>${school}</b></h2>
-    <b>Huidige punten:</b> ${currentScore}<br>
-    <b>Te ontvangen televote:</b> <span style="color:#1565c0;font-weight:bold">${televoteData[school]}</span><br>
-    <b>Koploper:</b> ${koploper} (${maxScore} punten)<br>
-    <b>${uitleg}</b>
-    <hr>
-    <div style="opacity:0.6">Klik door voor de nieuwe stand na deze televote.</div>
-  `;
-  return slide;
-}
 
-// ---- SLIDESHOW LOGICA ----
-
-function showPresentatorSlide(index) {
-  const slideshow = document.getElementById("presentator-slideshow");
-  currentSlideIndex = Math.max(0, Math.min(index, presentatorSlides.length - 1));
-  slideshow.innerHTML = '';
-  slideshow.appendChild(presentatorSlides[currentSlideIndex]);
-}
-window.addEventListener("keydown", (e) => {
-  if (e.code === "Space" || e.code === "ArrowRight") {
-    showPresentatorSlide(currentSlideIndex + 1);
-  } else if (e.code === "ArrowLeft") {
-    showPresentatorSlide(currentSlideIndex - 1);
+  if (slide.type === 'jury-punten') {
+    el.innerHTML = `
+      <div class="jury-punten">
+        <h2>Punten van de jury</h2>
+        <ul>
+          ${slide.punten.map(([school, punten]) =>
+            `<li><span class="punten">${punten}</span> - <span class="school">${school}</span></li>`
+          ).join('')}
+        </ul>
+      </div>
+    `;
   }
+
+  if (slide.type === 'tussenstand') {
+    const tussenstand = berekenTussenstand(data.jury, slide.totJury);
+    el.innerHTML = `
+      <div class="tussenstand">
+        <h2>Tussenstand na ${slide.totJury} jury's</h2>
+        <ol>
+          ${tussenstand.map(([school, punten]) =>
+            `<li><span class="school">${school}</span>: <span class="punten">${punten}</span></li>`
+          ).join('')}
+        </ol>
+      </div>
+    `;
+  }
+
+  if (slide.type === 'televote-voor') {
+    el.innerHTML = `
+      <div class="televote-voor">
+        <h2>Televote voor ${slide.school}</h2>
+        <p>Huidige punten: <span class="punten">${slide.huidig}</span></p>
+        <p>${slide.verschil === 0 ? 'Staat bovenaan!' : `Heeft nog ${slide.verschil} punt${slide.verschil === 1 ? '' : 'en'} nodig voor de eerste plek.`}</p>
+      </div>
+    `;
+  }
+
+  if (slide.type === 'televote-na') {
+    el.innerHTML = `
+      <div class="televote-na">
+        <h2>Nieuwe stand ${slide.school}</h2>
+        <p>Televote: <span class="punten">${slide.televote}</span></p>
+        <p>Totaal: <span class="punten">${slide.nieuw}</span></p>
+      </div>
+    `;
+  }
+
+  if (slide.type === 'tussenstand-eind') {
+    const eindstand = berekenTussenstand(data.jury, data.jury.length, data.televote);
+    el.innerHTML = `
+      <div class="tussenstand eind">
+        <h2>Eindstand na televote</h2>
+        <ol>
+          ${eindstand.map(([school, punten]) =>
+            `<li><span class="school">${school}</span>: <span class="punten">${punten}</span></li>`
+          ).join('')}
+        </ol>
+      </div>
+    `;
+  }
+}
+
+// Navigatie (keyboard & touch)
+function showSlide(idx) {
+  currentSlide = Math.max(0, Math.min(idx, slides.length - 1));
+  renderSlide(slides[currentSlide]);
+}
+function nextSlide() { if (currentSlide < slides.length - 1) showSlide(currentSlide + 1); }
+function prevSlide() { if (currentSlide > 0) showSlide(currentSlide - 1); }
+
+document.addEventListener('keydown', e => {
+  if ([' ', 'Space', 'ArrowRight', 'Enter'].includes(e.key)) { nextSlide(); e.preventDefault(); }
+  if (e.key === 'ArrowLeft') { prevSlide(); e.preventDefault(); }
 });
+// Touch/click voor touchscreen en gemak
+document.addEventListener('touchend', e => { nextSlide(); e.preventDefault(); });
+document.addEventListener('click', e => { nextSlide(); });
+
+fetch(DATA_PATH)
+  .then(res => res.json())
+  .then(json => {
+    data = json;
+    maakJurySlides(data.jury);
+    maakTelevoteSlides(data.televote, data.jury);
+    showSlide(0);
+  });
