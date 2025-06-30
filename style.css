@@ -5,6 +5,7 @@ body, html {
   background: #111;
   color: #fff;
   font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 12px;
 }
 
 #slideshow {
@@ -18,7 +19,6 @@ body, html {
   justify-content: center;
   background: linear-gradient(135deg, #3a1c71 0%, #d76d77 50%, #ffaf7b 100%);
   border-radius: 0;
-  font-size: 2.5rem;
   text-align: center;
   padding: 0;
   position: relative;
@@ -44,67 +44,91 @@ body, html {
 }
 
 .presentator-foto {
-  width: 22vw;
-  max-width: 180px;
-  height: 22vw;
-  max-height: 180px;
+  width: 17vw;
+  max-width: 75px;
+  height: 17vw;
+  max-height: 75px;
   object-fit: cover;
   border-radius: 50%;
-  margin-bottom: 1rem;
-  border: 6px solid #fff7;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.20);
+  margin-bottom: 0.7rem;
+  border: 3px solid #fff7;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
   background: #fff2;
+}
+
+h2 {
+  font-size: 1.2em;
+  margin: 0.3em 0 0.2em 0;
+}
+h3 {
+  font-size: 1em;
+  margin: 0.2em 0 0.1em 0;
+}
+p {
+  font-size: 0.9em;
+  margin: 0.1em 0 0.2em 0;
+  word-break: break-word;
 }
 
 ul, ol {
   list-style: none;
   padding: 0;
-  margin: 1.2rem auto 0 auto;
-  width: 90vw;
-  max-width: 350px;
+  margin: 0.5em auto 0 auto;
+  width: 94vw;
+  max-width: 290px;
   text-align: left;
-  font-size: 1em;
+  font-size: 0.98em;
 }
 
 li {
-  margin: 0.4em 0;
-  padding: 0.5em 0.8em;
+  margin: 0.2em 0;
+  padding: 0.3em 0.4em;
   background: rgba(255,255,255,0.07);
-  border-radius: 8px;
+  border-radius: 6px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+  font-size: 0.98em;
 }
 
+li .rang {
+  min-width: 2.2em;
+  text-align: right;
+  margin-right: 0.6em;
+  color: #00ffd9;
+  font-weight: bold;
+  font-size: 1em;
+}
 li .school {
   font-weight: 500;
   color: #ffe;
+  margin-right: 0.5em;
+  font-size: 1em;
 }
 li .punten {
   font-variant-numeric: tabular-nums;
-  font-size: 1.2em;
+  font-size: 1em;
   color: #ffd700;
-  margin-right: 1em;
+  margin-left: auto;
 }
 
-h2, h3, p {
-  margin: 0.5em 0;
-  word-break: break-word;
-}
-
-@media (max-width: 700px) {
+@media (max-width: 500px) {
   #slideshow, .slide {
-    font-size: 1.1rem;
+    font-size: 0.85rem;
     padding: 0 1vw;
   }
   .presentator-foto {
-    width: 28vw;
-    height: 28vw;
-    max-width: 95px;
-    max-height: 95px;
+    width: 24vw;
+    height: 24vw;
+    max-width: 60px;
+    max-height: 60px;
   }
   ul, ol {
-    font-size: 0.95em;
+    font-size: 0.93em;
     max-width: 97vw;
   }
+  h2 { font-size: 1em; }
+  h3 { font-size: 0.95em; }
+  p  { font-size: 0.9em; }
+  li { font-size: 0.92em; }
 }
