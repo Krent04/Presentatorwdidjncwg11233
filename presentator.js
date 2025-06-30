@@ -27,13 +27,17 @@ function ranglabel(n) {
 }
 
 function maakJurySlides(juryArray) {
-  const half = Math.floor(juryArray.length / 2);
+  const total = juryArray.length;
+  const half = Math.floor(total / 2);
   juryArray.forEach((jury, i) => {
     slides.push({
       type: 'jury-intro',
       juryIndex: i,
       school: jury.school,
-      presentator: jury.presentator
+      presentator: jury.presentator,
+      juryNummer: i + 1,
+      juryTotal: total,
+      allJuryNamen: juryArray.map(j => j.school),
     });
     slides.push({
       type: 'jury-punten',
@@ -42,7 +46,7 @@ function maakJurySlides(juryArray) {
     });
     // Reminder alleen na de helft en na de laatste jury
     let reminder = false;
-    if (i + 1 === half || i + 1 === juryArray.length) reminder = true;
+    if (i + 1 === half || i + 1 === total) reminder = true;
     slides.push({
       type: 'tussenstand',
       totJury: i + 1,
@@ -52,11 +56,9 @@ function maakJurySlides(juryArray) {
 }
 
 function maakTelevoteSlides(televote, juryArray) {
-  // Bepaal de volgorde: van laagste naar hoogste na de vakjury's
   let tussenstand = berekenTussenstand(juryArray, juryArray.length);
-  // Sorteer scholen volgens laagste naar hoogste punten
   const scholenVolgorde = tussenstand
-    .slice() // copy so we don't mutate origin
+    .slice()
     .sort((a, b) => a[1] - b[1])
     .map(([school]) => school);
 
@@ -68,7 +70,11 @@ function maakTelevoteSlides(televote, juryArray) {
       type: 'televote-voor',
       school,
       huidig,
-      verschil
+      verschil,
+      schoolNummer: idx + 1,
+      schoolTotal: scholenVolgorde.length,
+      nogTeGaan: scholenVolgorde.length - (idx + 1),
+      volgorde: scholenVolgorde,
     });
     const nieuw = huidig + televote[school];
     slides.push({
@@ -79,7 +85,6 @@ function maakTelevoteSlides(televote, juryArray) {
     });
     // Update tussenstand
     tussenstand = tussenstand.map(([s, p]) => [s, s === school ? nieuw : p]);
-    // Bij televote-tussenstanden géén reminder
     slides.push({
       type: 'tussenstand',
       totJury: juryArray.length,
@@ -87,6 +92,16 @@ function maakTelevoteSlides(televote, juryArray) {
       reminder: false
     });
   });
+}
+
+function renderJuryProgress(juryIndex, total, names) {
+  return `<div style="display:flex;justify-content:center;flex-wrap:wrap;font-size:0.8em;gap:0.15em;max-width:98vw;margin:0.2em 0 0.4em 0;">
+    ${names.map((naam, i) =>
+      `<span style="padding:0.18em 0.56em;border-radius:0.75em;${i < juryIndex ? "background:#15e88f;color:#222;" : i === juryIndex ? "background:#fff;color:#222;font-weight:bold;" : "background:#fff3;color:#ccc;"}">
+        ${naam}${i < juryIndex ? ' ✓' : ''}
+      </span>`
+    ).join('')}
+  </div>`;
 }
 
 function renderSlide(slide) {
@@ -98,6 +113,8 @@ function renderSlide(slide) {
   if (slide.type === 'jury-intro') {
     const p = slide.presentator;
     slideDiv.innerHTML = `
+      <div style="font-size:0.97em;margin-bottom:0.2em;">Vakjury ${slide.juryNummer} van ${slide.juryTotal}</div>
+      ${renderJuryProgress(slide.juryIndex, slide.juryTotal, slide.allJuryNamen)}
       <img src="${p.foto}" alt="${p.naam}" class="presentator-foto">
       <h2>Volgende vakjury: ${slide.school}</h2>
       <h3>${p.naam}</h3>
@@ -145,6 +162,9 @@ function renderSlide(slide) {
     slideDiv.innerHTML = `
       <h2>Televote voor ${slide.school}</h2>
       <p>Huidige punten: <span class="punten">${slide.huidig}</span></p>
+      <div style="font-size:0.85em;margin:0.5em 0 0.25em 0;">
+        Nog <b>${slide.nogTeGaan}</b> school${slide.nogTeGaan === 1 ? '' : 'en'} te gaan
+      </div>
       <p style="font-size:0.8em;">${slide.verschil === 0 ? 'Staat bovenaan!' : `Heeft nog ${slide.verschil} punt${slide.verschil === 1 ? '' : 'en'} nodig voor de eerste plek.`}</p>
     `;
   }
