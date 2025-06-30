@@ -68,8 +68,11 @@ function maakTelevoteSlides(televote, juryArray) {
     const verschil = Math.max(0, hoogste - huidig + 1);
 
     // Bepaal welke scholen al televote hebben ontvangen
-    const ontvangenTelevote = Object.fromEntries(
+    const ontvangenTelevoteVoor = Object.fromEntries(
       scholenVolgorde.slice(0, idx).map(s => [s, televote[s]])
+    );
+    const ontvangenTelevoteNa = Object.fromEntries(
+      scholenVolgorde.slice(0, idx + 1).map(s => [s, televote[s]])
     );
 
     slides.push({
@@ -81,7 +84,7 @@ function maakTelevoteSlides(televote, juryArray) {
       schoolTotal: scholenVolgorde.length,
       nogTeGaan: scholenVolgorde.length - (idx + 1),
       volgorde: scholenVolgorde,
-      ontvangenTelevote: ontvangenTelevote
+      ontvangenTelevote: ontvangenTelevoteVoor
     });
 
     const nieuw = huidig + televote[school];
@@ -93,9 +96,7 @@ function maakTelevoteSlides(televote, juryArray) {
       schoolNummer: idx + 1,
       schoolTotal: scholenVolgorde.length,
       volgorde: scholenVolgorde,
-      ontvangenTelevote: Object.fromEntries(
-        scholenVolgorde.slice(0, idx + 1).map(s => [s, televote[s]])
-      )
+      ontvangenTelevote: ontvangenTelevoteNa
     });
 
     // Update tussenstand
@@ -119,26 +120,69 @@ function renderJuryProgress(juryIndex, total, names) {
   </div>`;
 }
 
-function renderTelevoteTussenstand(volgorde, ontvangenTelevote, highlightSchool) {
-  // Laat alle scholen zien, kleur degene met ontvangenTelevote
+function renderTelevoteScoreboard(volgorde, juryArray, toegekendeTelevote, huidigeSchool, highlightIsNa) {
+  // Bepaal actuele tussenstand
+  let totaal = {};
+  juryArray.forEach(j => Object.keys(j.punten).forEach(s => (totaal[s] = 0)));
+  juryArray.forEach(j =>
+    Object.entries(j.punten).forEach(([school, punten]) => { totaal[school] += punten; })
+  );
+  Object.entries(toegekendeTelevote).forEach(([school, punten]) => { totaal[school] += punten; });
+
+  // Maak array van [school, totaal, televoteDezeSchool]
+  let scholen = volgorde.map(school => [
+    school,
+    totaal[school],
+    toegekendeTelevote[school] || 0
+  ]);
+  // Sorteer op totaal DESC, voor rang
+  scholen.sort((a, b) => b[1] - a[1]);
+
+  // Rang bepalen
+  let rangMap = {};
+  let lastScore = null, lastRank = 0;
+  scholen.forEach(([school, punten], idx) => {
+    if (punten !== lastScore) lastRank = idx + 1;
+    rangMap[school] = lastRank;
+    lastScore = punten;
+  });
+
+  // Toon scoreboard
   return `
-    <div style="position:absolute;right:0.8vw;top:1vw;max-width:38vw;width:32vw;z-index:100;background:rgba(0,0,0,0.30);border-radius:0.7em;padding:0.6em 1em 0.6em 1em;box-shadow:0 2px 8px #0003;">
-      <div style="font-size:0.91em;font-weight:bold;margin-bottom:0.35em;text-align:left;">Tussenstand televote</div>
-      <ul style="list-style:none;padding:0;margin:0;font-size:0.88em;text-align:left;">${
-        volgorde.map(school => {
-          let received = ontvangenTelevote.hasOwnProperty(school);
-          let highlight = school === highlightSchool;
-          let kleur = highlight
-            ? 'background:#ffe066;color:#752;'
-            : received
-            ? 'background:#15e88f;color:#222;'
-            : 'background:rgba(255,255,255,0.04);color:#fff;';
-          return `<li style="margin:0.15em 0;padding:0.13em 0.6em;border-radius:0.7em;${kleur}display:flex;justify-content:space-between;align-items:center;">
-            <span>${school}</span>
-            <span style="font-variant-numeric:tabular-nums;">${received ? ontvangenTelevote[school] : ''}</span>
-          </li>`;
-        }).join('')
-      }</ul>
+    <div style="position:absolute;right:1vw;top:0.7vw;min-width:140px;max-width:210px;z-index:110;background:rgba(0,0,0,0.18);border-radius:0.5em;padding:0.32em 0.5em 0.38em 0.5em;box-shadow:0 2px 8px #0002; font-size:0.93em;">
+      <div style="font-size:0.94em;font-weight:bold;margin-bottom:0.13em;text-align:left;">Scoreboard</div>
+      <table style="width:100%;border-collapse:collapse;font-size:0.92em;">
+        <thead>
+          <tr>
+            <th style="text-align:left;font-weight:600;font-size:0.92em;">&nbsp;</th>
+            <th style="text-align:left;font-weight:600;font-size:0.92em;">School</th>
+            <th style="text-align:right;font-weight:600;font-size:0.92em;">Totaal</th>
+            <th style="text-align:right;font-weight:600;font-size:0.92em;">TV</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${volgorde.map(school => {
+            const totaalScore = totaal[school];
+            const tvPunten = toegekendeTelevote[school] || 0;
+            const rank = rangMap[school];
+            const kleur = school === huidigeSchool && highlightIsNa
+              ? 'background:#ffe066;color:#752;font-weight:bold;'
+              : school === huidigeSchool
+              ? 'background:#d1f7c4;color:#1b4;font-weight:bold;'
+              : tvPunten > 0
+              ? 'background:#baffd6;color:#194;'
+              : '';
+            return `<tr style="${kleur}border-radius:0.4em;">
+              <td style="width:1.3em;text-align:right;padding:0 0.25em 0 0.1em;">${ranglabel(rank)}</td>
+              <td style="text-align:left;max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 0.1em;">${school}</td>
+              <td style="text-align:right;padding:0 0.1em;">${totaalScore}</td>
+              <td style="text-align:right;padding:0 0.1em;">
+                ${tvPunten > 0 ? `<span style="color:#090; font-weight:600;">+${tvPunten}</span>` : ''}
+              </td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
     </div>
   `;
 }
@@ -200,10 +244,12 @@ function renderSlide(slide) {
     `;
   }
   if (slide.type === 'televote-voor') {
-    rightOverlay = renderTelevoteTussenstand(
+    rightOverlay = renderTelevoteScoreboard(
       slide.volgorde,
+      data.jury,
       slide.ontvangenTelevote,
-      slide.school
+      slide.school,
+      false
     );
     slideDiv.innerHTML = `
       <h2>Televote voor ${slide.school}</h2>
@@ -215,10 +261,12 @@ function renderSlide(slide) {
     `;
   }
   if (slide.type === 'televote-na') {
-    rightOverlay = renderTelevoteTussenstand(
+    rightOverlay = renderTelevoteScoreboard(
       slide.volgorde,
+      data.jury,
       slide.ontvangenTelevote,
-      slide.school
+      slide.school,
+      true
     );
     slideDiv.innerHTML = `
       <h2>Nieuwe stand ${slide.school}</h2>
