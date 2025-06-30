@@ -23,6 +23,9 @@ function berekenTussenstand(juryArray, totIndex, televote = null) {
 }
 
 function ranglabel(n) {
+  if (n === 1) return '🥇';
+  if (n === 2) return '🥈';
+  if (n === 3) return '🥉';
   return `${n}e`;
 }
 
@@ -67,7 +70,7 @@ function maakTelevoteSlides(televote, juryArray) {
     const hoogste = Math.max(...tussenstand.map(([, p]) => p));
     const verschil = Math.max(0, hoogste - huidig + 1);
 
-    // Bepaal welke scholen al televote hebben ontvangen
+    // Televote per slide voor/na
     const ontvangenTelevoteVoor = Object.fromEntries(
       scholenVolgorde.slice(0, idx).map(s => [s, televote[s]])
     );
@@ -130,7 +133,7 @@ function renderTelevoteScoreboard(volgorde, juryArray, toegekendeTelevote, huidi
   Object.entries(toegekendeTelevote).forEach(([school, punten]) => { totaal[school] += punten; });
 
   // Maak array van [school, totaal, televoteDezeSchool]
-  let scholen = volgorde.map(school => [
+  let scholen = Object.keys(totaal).map(school => [
     school,
     totaal[school],
     toegekendeTelevote[school] || 0
@@ -147,42 +150,42 @@ function renderTelevoteScoreboard(volgorde, juryArray, toegekendeTelevote, huidi
     lastScore = punten;
   });
 
-  // Toon scoreboard
+  // Toon gecentreerd scoreboard
   return `
-    <div style="position:absolute;right:1vw;top:0.7vw;min-width:140px;max-width:210px;z-index:110;background:rgba(0,0,0,0.18);border-radius:0.5em;padding:0.32em 0.5em 0.38em 0.5em;box-shadow:0 2px 8px #0002; font-size:0.93em;">
-      <div style="font-size:0.94em;font-weight:bold;margin-bottom:0.13em;text-align:left;">Scoreboard</div>
-      <table style="width:100%;border-collapse:collapse;font-size:0.92em;">
-        <thead>
-          <tr>
-            <th style="text-align:left;font-weight:600;font-size:0.92em;">&nbsp;</th>
-            <th style="text-align:left;font-weight:600;font-size:0.92em;">School</th>
-            <th style="text-align:right;font-weight:600;font-size:0.92em;">Totaal</th>
-            <th style="text-align:right;font-weight:600;font-size:0.92em;">TV</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${volgorde.map(school => {
-            const totaalScore = totaal[school];
-            const tvPunten = toegekendeTelevote[school] || 0;
-            const rank = rangMap[school];
-            const kleur = school === huidigeSchool && highlightIsNa
-              ? 'background:#ffe066;color:#752;font-weight:bold;'
-              : school === huidigeSchool
-              ? 'background:#d1f7c4;color:#1b4;font-weight:bold;'
-              : tvPunten > 0
-              ? 'background:#baffd6;color:#194;'
-              : '';
-            return `<tr style="${kleur}border-radius:0.4em;">
-              <td style="width:1.3em;text-align:right;padding:0 0.25em 0 0.1em;">${ranglabel(rank)}</td>
-              <td style="text-align:left;max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 0.1em;">${school}</td>
-              <td style="text-align:right;padding:0 0.1em;">${totaalScore}</td>
-              <td style="text-align:right;padding:0 0.1em;">
-                ${tvPunten > 0 ? `<span style="color:#090; font-weight:600;">+${tvPunten}</span>` : ''}
-              </td>
-            </tr>`;
-          }).join('')}
-        </tbody>
-      </table>
+    <div style="display:flex;justify-content:center;width:100%;margin-top:0.6em;margin-bottom:0.3em;">
+      <div style="background:rgba(0,0,0,0.16);border-radius:0.6em;padding:0.54em 1.1em 0.7em 1.1em;box-shadow:0 2px 8px #0002; font-size:1em;max-width:480px;width:100%;">
+        <div style="font-size:1em;font-weight:bold;margin-bottom:0.13em;text-align:center;">Scoreboard</div>
+        <table style="width:100%;border-collapse:collapse;font-size:0.97em;">
+          <thead>
+            <tr>
+              <th style="text-align:left;font-weight:600;font-size:0.93em;">&nbsp;</th>
+              <th style="text-align:left;font-weight:600;font-size:0.93em;">School</th>
+              <th style="text-align:right;font-weight:600;font-size:0.93em;">Totaal</th>
+              <th style="text-align:right;font-weight:600;font-size:0.93em;">TV</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${scholen.map(([school, totaalScore, tvPunten]) => {
+              const rank = rangMap[school];
+              const kleur = school === huidigeSchool && highlightIsNa
+                ? 'background:#ffe066;color:#752;font-weight:bold;'
+                : school === huidigeSchool
+                ? 'background:#d1f7c4;color:#1b4;font-weight:bold;'
+                : tvPunten > 0
+                ? 'background:#baffd6;color:#194;'
+                : '';
+              return `<tr style="${kleur}border-radius:0.4em;">
+                <td style="width:1.5em;text-align:right;padding:0 0.25em 0 0.1em;">${ranglabel(rank)}</td>
+                <td style="text-align:left;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 0.2em;">${school}</td>
+                <td style="text-align:right;padding:0 0.2em;">${totaalScore}</td>
+                <td style="text-align:right;padding:0 0.2em;">
+                  ${tvPunten > 0 ? `<span style="color:#090; font-weight:600;">+${tvPunten}</span>` : ''}
+                </td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
     </div>
   `;
 }
@@ -193,7 +196,7 @@ function renderSlide(slide) {
   const slideDiv = document.createElement('div');
   slideDiv.className = 'slide active';
 
-  let rightOverlay = '';
+  let scoreboard = '';
 
   if (slide.type === 'jury-intro') {
     const p = slide.presentator;
@@ -243,35 +246,28 @@ function renderSlide(slide) {
       }
     `;
   }
-  if (slide.type === 'televote-voor') {
-    rightOverlay = renderTelevoteScoreboard(
+  if (slide.type === 'televote-voor' || slide.type === 'televote-na') {
+    const highlightIsNa = slide.type === 'televote-na';
+    scoreboard = renderTelevoteScoreboard(
       slide.volgorde,
       data.jury,
       slide.ontvangenTelevote,
       slide.school,
-      false
+      highlightIsNa
     );
     slideDiv.innerHTML = `
-      <h2>Televote voor ${slide.school}</h2>
-      <p>Huidige punten: <span class="punten">${slide.huidig}</span></p>
-      <div style="font-size:0.85em;margin:0.5em 0 0.25em 0;">
-        Nog <b>${slide.nogTeGaan}</b> school${slide.nogTeGaan === 1 ? '' : 'en'} te gaan
-      </div>
-      <p style="font-size:0.8em;">${slide.verschil === 0 ? 'Staat bovenaan!' : `Heeft nog ${slide.verschil} punt${slide.verschil === 1 ? '' : 'en'} nodig voor de eerste plek.`}</p>
-    `;
-  }
-  if (slide.type === 'televote-na') {
-    rightOverlay = renderTelevoteScoreboard(
-      slide.volgorde,
-      data.jury,
-      slide.ontvangenTelevote,
-      slide.school,
-      true
-    );
-    slideDiv.innerHTML = `
-      <h2>Nieuwe stand ${slide.school}</h2>
-      <p>Televote: <span class="punten">${slide.televote}</span></p>
-      <p>Totaal: <span class="punten">${slide.nieuw}</span></p>
+      <h2 style="margin-bottom:0.1em;">${slide.type === 'televote-voor' ? 'Televote voor' : 'Nieuwe stand'} ${slide.school}</h2>
+      ${scoreboard}
+      ${slide.type === 'televote-voor' ? `
+        <p>Huidige punten: <span class="punten">${slide.huidig}</span></p>
+        <div style="font-size:0.85em;margin:0.5em 0 0.25em 0;">
+          Nog <b>${slide.nogTeGaan}</b> school${slide.nogTeGaan === 1 ? '' : 'en'} te gaan
+        </div>
+        <p style="font-size:0.8em;">${slide.verschil === 0 ? 'Staat bovenaan!' : `Heeft nog ${slide.verschil} punt${slide.verschil === 1 ? '' : 'en'} nodig voor de eerste plek.`}</p>
+      ` : `
+        <p>Televote: <span class="punten">${slide.televote}</span></p>
+        <p>Totaal: <span class="punten">${slide.nieuw}</span></p>
+      `}
     `;
   }
   if (slide.type === 'intro' || !slide.type) {
@@ -280,7 +276,6 @@ function renderSlide(slide) {
       <p style="font-size:0.9em;">Gebruik de spatiebalk, pijltjestoetsen of tik aan de rechter/ linker kant van je scherm voor navigatie.</p>
     `;
   }
-  slideDiv.innerHTML += rightOverlay;
   el.appendChild(slideDiv);
 }
 
