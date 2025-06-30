@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <title>Puntenanimatie Songfestival</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <!-- Voor iPhone/iPad fullscreen als webapp -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Optioneel icoon voor beginscherm -->
+  <!-- <link rel="apple-touch-icon" href="appicon.png"> -->
   <style>
     html, body {
       height: 100%;
@@ -52,16 +57,6 @@
     @keyframes fadein {
       from { opacity: 0; transform: translateY(30px);}
       to { opacity: 1; transform: none;}
-    }
-    .presentator-foto {
-      width: 90px;
-      height: 90px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 3px solid #00ffd9;
-      margin: 0.1em 0 0.6em 0;
-      display: block;
-      background: #fff1;
     }
     h2, h3 { margin-top: 0.38em; margin-bottom: 0.2em; }
     ul, ol { width: 100%; max-width: 480px; margin: 0.5em auto 0.4em auto; }
