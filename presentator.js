@@ -22,6 +22,11 @@ function berekenTussenstand(juryArray, totIndex, televote = null) {
   return Object.entries(totaal).sort((a, b) => b[1] - a[1]);
 }
 
+function ranglabel(n) {
+  // Nederlandse rangnummers: 1e, 2e, 3e, 4e, ...
+  return `${n}e`;
+}
+
 function maakJurySlides(juryArray) {
   const half = Math.floor(juryArray.length / 2);
   juryArray.forEach((jury, i) => {
@@ -102,7 +107,7 @@ function renderSlide(slide) {
       <h2>Punten van de jury</h2>
       <ul>
         ${slide.punten.map(([school, punten]) =>
-          `<li><span class="punten">${punten}</span> <span class="school">${school}</span></li>`
+          `<li><span class="school">${school}</span><span class="punten">${punten}</span></li>`
         ).join('')}
       </ul>
     `;
@@ -121,8 +126,8 @@ function renderSlide(slide) {
     slideDiv.innerHTML = `
       <h2>Tussenstand</h2>
       <ol>
-        ${tussenstand.map(([school, punten]) =>
-          `<li><span class="school">${school}</span>: <span class="punten">${punten}</span></li>`
+        ${tussenstand.map(([school, punten], idx) =>
+          `<li><span class="rang">${ranglabel(idx+1)}</span><span class="school">${school}</span><span class="punten">${punten}</span></li>`
         ).join('')}
       </ol>
     `;
@@ -131,7 +136,7 @@ function renderSlide(slide) {
     slideDiv.innerHTML = `
       <h2>Televote voor ${slide.school}</h2>
       <p>Huidige punten: <span class="punten">${slide.huidig}</span></p>
-      <p>${slide.verschil === 0 ? 'Staat bovenaan!' : `Heeft nog ${slide.verschil} punt${slide.verschil === 1 ? '' : 'en'} nodig voor de eerste plek.`}</p>
+      <p style="font-size:0.8em;">${slide.verschil === 0 ? 'Staat bovenaan!' : `Heeft nog ${slide.verschil} punt${slide.verschil === 1 ? '' : 'en'} nodig voor de eerste plek.`}</p>
     `;
   }
   if (slide.type === 'televote-na') {
@@ -144,14 +149,14 @@ function renderSlide(slide) {
   if (slide.type === 'reminder-greenroom') {
     slideDiv.innerHTML = `
       <h2>Bespreek de tussenstand!</h2>
-      <p>Presentator: neem even de tijd om de tussenstand met het publiek te bespreken.</p>
-      <p>${slide.moment === 'eind' ? 'We gaan nu naar de greenroom en bereiden ons voor op het eindresultaat!' : 'Daarna schakelen we over naar de greenroom!'}</p>
+      <p style="font-size:0.85em;">Presentator: neem even de tijd om de tussenstand met het publiek te bespreken.</p>
+      <p style="font-size:0.85em;">${slide.moment === 'eind' ? 'We gaan nu naar de greenroom en bereiden ons voor op het eindresultaat!' : 'Daarna schakelen we over naar de greenroom!'}</p>
     `;
   }
   if (slide.type === 'intro' || !slide.type) {
     slideDiv.innerHTML = `
-      <h2>Puntenanimatie Songfestival</h2>
-      <p>Gebruik de spatiebalk, pijltjestoetsen of tik aan de rechter/ linker kant van je scherm voor navigatie.</p>
+      <h2 style="font-size:1.15em;">Puntenanimatie Songfestival</h2>
+      <p style="font-size:0.9em;">Gebruik de spatiebalk, pijltjestoetsen of tik aan de rechter/ linker kant van je scherm voor navigatie.</p>
     `;
   }
   el.appendChild(slideDiv);
