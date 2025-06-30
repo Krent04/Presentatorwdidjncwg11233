@@ -66,6 +66,12 @@ function maakTelevoteSlides(televote, juryArray) {
     const huidig = tussenstand.find(([s]) => s === school)[1];
     const hoogste = Math.max(...tussenstand.map(([, p]) => p));
     const verschil = Math.max(0, hoogste - huidig + 1);
+
+    // Bepaal welke scholen al televote hebben ontvangen
+    const ontvangenTelevote = Object.fromEntries(
+      scholenVolgorde.slice(0, idx).map(s => [s, televote[s]])
+    );
+
     slides.push({
       type: 'televote-voor',
       school,
@@ -75,14 +81,23 @@ function maakTelevoteSlides(televote, juryArray) {
       schoolTotal: scholenVolgorde.length,
       nogTeGaan: scholenVolgorde.length - (idx + 1),
       volgorde: scholenVolgorde,
+      ontvangenTelevote: ontvangenTelevote
     });
+
     const nieuw = huidig + televote[school];
     slides.push({
       type: 'televote-na',
       school,
       nieuw,
-      televote: televote[school]
+      televote: televote[school],
+      schoolNummer: idx + 1,
+      schoolTotal: scholenVolgorde.length,
+      volgorde: scholenVolgorde,
+      ontvangenTelevote: Object.fromEntries(
+        scholenVolgorde.slice(0, idx + 1).map(s => [s, televote[s]])
+      )
     });
+
     // Update tussenstand
     tussenstand = tussenstand.map(([s, p]) => [s, s === school ? nieuw : p]);
     slides.push({
@@ -104,11 +119,37 @@ function renderJuryProgress(juryIndex, total, names) {
   </div>`;
 }
 
+function renderTelevoteTussenstand(volgorde, ontvangenTelevote, highlightSchool) {
+  // Laat alle scholen zien, kleur degene met ontvangenTelevote
+  return `
+    <div style="position:absolute;right:0.8vw;top:1vw;max-width:38vw;width:32vw;z-index:100;background:rgba(0,0,0,0.30);border-radius:0.7em;padding:0.6em 1em 0.6em 1em;box-shadow:0 2px 8px #0003;">
+      <div style="font-size:0.91em;font-weight:bold;margin-bottom:0.35em;text-align:left;">Tussenstand televote</div>
+      <ul style="list-style:none;padding:0;margin:0;font-size:0.88em;text-align:left;">${
+        volgorde.map(school => {
+          let received = ontvangenTelevote.hasOwnProperty(school);
+          let highlight = school === highlightSchool;
+          let kleur = highlight
+            ? 'background:#ffe066;color:#752;'
+            : received
+            ? 'background:#15e88f;color:#222;'
+            : 'background:rgba(255,255,255,0.04);color:#fff;';
+          return `<li style="margin:0.15em 0;padding:0.13em 0.6em;border-radius:0.7em;${kleur}display:flex;justify-content:space-between;align-items:center;">
+            <span>${school}</span>
+            <span style="font-variant-numeric:tabular-nums;">${received ? ontvangenTelevote[school] : ''}</span>
+          </li>`;
+        }).join('')
+      }</ul>
+    </div>
+  `;
+}
+
 function renderSlide(slide) {
   const el = document.getElementById('slideshow');
   el.innerHTML = '';
   const slideDiv = document.createElement('div');
   slideDiv.className = 'slide active';
+
+  let rightOverlay = '';
 
   if (slide.type === 'jury-intro') {
     const p = slide.presentator;
@@ -159,6 +200,11 @@ function renderSlide(slide) {
     `;
   }
   if (slide.type === 'televote-voor') {
+    rightOverlay = renderTelevoteTussenstand(
+      slide.volgorde,
+      slide.ontvangenTelevote,
+      slide.school
+    );
     slideDiv.innerHTML = `
       <h2>Televote voor ${slide.school}</h2>
       <p>Huidige punten: <span class="punten">${slide.huidig}</span></p>
@@ -169,6 +215,11 @@ function renderSlide(slide) {
     `;
   }
   if (slide.type === 'televote-na') {
+    rightOverlay = renderTelevoteTussenstand(
+      slide.volgorde,
+      slide.ontvangenTelevote,
+      slide.school
+    );
     slideDiv.innerHTML = `
       <h2>Nieuwe stand ${slide.school}</h2>
       <p>Televote: <span class="punten">${slide.televote}</span></p>
@@ -181,6 +232,7 @@ function renderSlide(slide) {
       <p style="font-size:0.9em;">Gebruik de spatiebalk, pijltjestoetsen of tik aan de rechter/ linker kant van je scherm voor navigatie.</p>
     `;
   }
+  slideDiv.innerHTML += rightOverlay;
   el.appendChild(slideDiv);
 }
 
