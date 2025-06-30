@@ -65,6 +65,12 @@ function maakTelevoteSlides(televote, juryArray) {
     .sort((a, b) => a[1] - b[1])
     .map(([school]) => school);
 
+  // Intro-slide voor de televotes
+  slides.push({
+    type: 'televote-begin',
+    totaalScholen: scholenVolgorde.length
+  });
+
   scholenVolgorde.forEach((school, idx) => {
     const huidig = tussenstand.find(([s]) => s === school)[1];
     const hoogste = Math.max(...tussenstand.map(([, p]) => p));
@@ -78,6 +84,9 @@ function maakTelevoteSlides(televote, juryArray) {
       scholenVolgorde.slice(0, idx + 1).map(s => [s, televote[s]])
     );
 
+    // 'Nog te gaan' is het aantal resterende scholen inclusief deze
+    const nogTeGaan = scholenVolgorde.length - idx;
+
     slides.push({
       type: 'televote-voor',
       school,
@@ -85,7 +94,7 @@ function maakTelevoteSlides(televote, juryArray) {
       verschil,
       schoolNummer: idx + 1,
       schoolTotal: scholenVolgorde.length,
-      nogTeGaan: scholenVolgorde.length - (idx + 1),
+      nogTeGaan,
       volgorde: scholenVolgorde,
       ontvangenTelevote: ontvangenTelevoteVoor
     });
@@ -244,6 +253,18 @@ function renderSlide(slide) {
             </p>`
           : ''
       }
+    `;
+  }
+  if (slide.type === 'televote-begin') {
+    slideDiv.innerHTML = `
+      <h2>Start van de televotes!</h2>
+      <p style="font-size:1.1em;margin-top:1em;">
+        De punten van het publiek worden nu bekendgemaakt.<br>
+        <br>
+        Er zijn <b>${slide.totaalScholen}</b> scholen die publiekspunten ontvangen.<br>
+        <br>
+        <span style="color: #00ffd9;">Presentator: kondig aan dat we nu de publieksstemmen gaan verdelen!</span>
+      </p>
     `;
   }
   if (slide.type === 'televote-voor' || slide.type === 'televote-na') {
