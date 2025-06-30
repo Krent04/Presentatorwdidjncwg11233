@@ -25,25 +25,21 @@ function berekenTussenstand(juryArray, totIndex, televote = null) {
 function maakJurySlides(juryArray) {
   const half = Math.floor(juryArray.length / 2);
   juryArray.forEach((jury, i) => {
-    // Intro volgende vakjury
     slides.push({
       type: 'jury-intro',
       juryIndex: i,
       school: jury.school,
       presentator: jury.presentator
     });
-    // Punten van deze jury
     slides.push({
       type: 'jury-punten',
       juryIndex: i,
       punten: sorteerPunten(jury.punten)
     });
-    // Tussenstand direct na deze jury
     slides.push({
       type: 'tussenstand',
       totJury: i + 1,
     });
-    // Reminder na de helft en na de laatste vakjury
     if (i + 1 === half || i + 1 === juryArray.length) {
       slides.push({
         type: 'reminder-greenroom',
@@ -73,7 +69,6 @@ function maakTelevoteSlides(televote, juryArray) {
       nieuw,
       televote: televote[school]
     });
-    // Tussenstand na iedere televote
     tussenstand = tussenstand.map(([s, p]) => [s, s === school ? nieuw : p]);
     slides.push({
       type: 'tussenstand',
@@ -81,7 +76,6 @@ function maakTelevoteSlides(televote, juryArray) {
       televote: Object.fromEntries(scholen.slice(0, idx + 1).map(s => [s, televote[s]]))
     });
   });
-  // Reminder: eindbespreking en greenroom na álle televotes
   slides.push({
     type: 'reminder-greenroom',
     moment: 'eind'
@@ -114,7 +108,6 @@ function renderSlide(slide) {
     `;
   }
   if (slide.type === 'tussenstand') {
-    // televote kan gedeeltelijk zijn als object
     let tussenstand;
     if (slide.televote) {
       tussenstand = berekenTussenstand(
@@ -155,6 +148,12 @@ function renderSlide(slide) {
       <p>${slide.moment === 'eind' ? 'We gaan nu naar de greenroom en bereiden ons voor op het eindresultaat!' : 'Daarna schakelen we over naar de greenroom!'}</p>
     `;
   }
+  if (slide.type === 'intro' || !slide.type) {
+    slideDiv.innerHTML = `
+      <h2>Puntenanimatie Songfestival</h2>
+      <p>Gebruik de spatiebalk, pijltjestoetsen of tik aan de rechter/ linker kant van je scherm voor navigatie.</p>
+    `;
+  }
   el.appendChild(slideDiv);
 }
 
@@ -169,15 +168,37 @@ document.addEventListener('keydown', e => {
   if ([' ', 'Space', 'ArrowRight', 'Enter'].includes(e.key)) { nextSlide(); e.preventDefault(); }
   if (e.key === 'ArrowLeft') { prevSlide(); e.preventDefault(); }
 });
-document.addEventListener('touchend', e => { nextSlide(); e.preventDefault(); });
-document.addEventListener('click', e => { nextSlide(); });
+
+// Touch: swipe/tap links = terug, rechts = vooruit
+document.getElementById('slideshow').addEventListener('touchend', function(e) {
+  if (e.changedTouches && e.changedTouches.length) {
+    const x = e.changedTouches[0].clientX;
+    const w = window.innerWidth;
+    if (x < w / 2) {
+      prevSlide();
+    } else {
+      nextSlide();
+    }
+    e.preventDefault();
+  }
+});
+
+// Click: klik links = terug, rechts = vooruit
+document.getElementById('slideshow').addEventListener('click', function(e) {
+  const x = e.clientX;
+  const w = window.innerWidth;
+  if (x < w / 2) {
+    prevSlide();
+  } else {
+    nextSlide();
+  }
+});
 
 fetch(DATA_PATH)
   .then(res => res.json())
   .then(json => {
     data = json;
     slides = [];
-    // Intro slide
     slides.push({
       type: 'intro'
     });
