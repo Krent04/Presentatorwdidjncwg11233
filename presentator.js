@@ -312,6 +312,50 @@ function renderSlide(slide) {
       <p style="font-size:0.9em;">Gebruik de spatiebalk, pijltjestoetsen of tik aan de rechter/ linker kant van je scherm voor navigatie.</p>
     `;
   }
+  if (slide.type === 'eindstand') {
+    // Verzamel punten
+    let scholen = Object.keys(data.televote);
+    let eindstand = scholen.map(school => {
+      // Jury: som van alle punten voor deze school
+      let vakjury = data.jury.reduce((acc, jury) => acc + (jury.punten[school] || 0), 0);
+      let televote = data.televote[school] || 0;
+      return {
+        school,
+        vakjury,
+        televote,
+        totaal: vakjury + televote
+      };
+    });
+    // Sorteer op totaal aflopend
+    eindstand.sort((a, b) => b.totaal - a.totaal);
+
+    slideDiv.innerHTML = `
+      <h2>🎉 Eindstand Songfestival</h2>
+      <table style="margin:auto;max-width:600px;width:100%;font-size:1em;">
+        <thead>
+          <tr>
+            <th style="text-align:left;">#</th>
+            <th style="text-align:left;">School</th>
+            <th style="text-align:right;">Jury</th>
+            <th style="text-align:right;">Televote</th>
+            <th style="text-align:right;">Totaal</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${eindstand.map((row, i) => `
+            <tr>
+              <td>${i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i+1}</td>
+              <td>${row.school}</td>
+              <td style="text-align:right;">${row.vakjury}</td>
+              <td style="text-align:right;">${row.televote}</td>
+              <td style="text-align:right;font-weight:bold;">${row.totaal}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+      <p style="margin-top:1.5em;font-size:1.13em;color:#ffd900;">Gefeliciteerd ${eindstand[0].school}!</p>
+    `;
+  }
   el.appendChild(slideDiv);
 }
 
@@ -378,5 +422,8 @@ fetch(DATA_PATH)
     });
     maakJurySlides(data.jury);
     maakTelevoteSlides(data.televote, data.jury);
+    slides.push({
+      type: 'eindstand'
+    });
     showSlide(0);
   });
