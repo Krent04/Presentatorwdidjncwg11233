@@ -47,7 +47,6 @@ function maakJurySlides(juryArray) {
       juryIndex: i,
       punten: sorteerPunten(jury.punten)
     });
-    // Reminder alleen na de helft en na de laatste jury
     let reminder = false;
     if (i + 1 === half || i + 1 === total) reminder = true;
     slides.push({
@@ -65,7 +64,6 @@ function maakTelevoteSlides(televote, juryArray) {
     .sort((a, b) => a[1] - b[1])
     .map(([school]) => school);
 
-  // Intro-slide voor de televotes
   slides.push({
     type: 'televote-begin',
     totaalScholen: scholenVolgorde.length
@@ -76,7 +74,6 @@ function maakTelevoteSlides(televote, juryArray) {
     const hoogste = Math.max(...tussenstand.map(([, p]) => p));
     const verschil = Math.max(0, hoogste - huidig + 1);
 
-    // Televote per slide voor/na
     const ontvangenTelevoteVoor = Object.fromEntries(
       scholenVolgorde.slice(0, idx).map(s => [s, televote[s]])
     );
@@ -84,7 +81,6 @@ function maakTelevoteSlides(televote, juryArray) {
       scholenVolgorde.slice(0, idx + 1).map(s => [s, televote[s]])
     );
 
-    // 'Nog te gaan' is het aantal resterende scholen inclusief deze
     const nogTeGaan = scholenVolgorde.length - idx;
 
     slides.push({
@@ -111,7 +107,6 @@ function maakTelevoteSlides(televote, juryArray) {
       ontvangenTelevote: ontvangenTelevoteNa
     });
 
-    // Update tussenstand
     tussenstand = tussenstand.map(([s, p]) => [s, s === school ? nieuw : p]);
     slides.push({
       type: 'tussenstand',
@@ -133,7 +128,6 @@ function renderJuryProgress(juryIndex, total, names) {
 }
 
 function renderTelevoteScoreboard(volgorde, juryArray, toegekendeTelevote, huidigeSchool, highlightIsNa) {
-  // Bepaal actuele tussenstand
   let totaal = {};
   juryArray.forEach(j => Object.keys(j.punten).forEach(s => (totaal[s] = 0)));
   juryArray.forEach(j =>
@@ -141,16 +135,13 @@ function renderTelevoteScoreboard(volgorde, juryArray, toegekendeTelevote, huidi
   );
   Object.entries(toegekendeTelevote).forEach(([school, punten]) => { totaal[school] += punten; });
 
-  // Maak array van [school, totaal, televoteDezeSchool]
   let scholen = Object.keys(totaal).map(school => [
     school,
     totaal[school],
     toegekendeTelevote[school] || 0
   ]);
-  // Sorteer op totaal DESC, voor rang
   scholen.sort((a, b) => b[1] - a[1]);
 
-  // Rang bepalen
   let rangMap = {};
   let lastScore = null, lastRank = 0;
   scholen.forEach(([school, punten], idx) => {
@@ -159,7 +150,6 @@ function renderTelevoteScoreboard(volgorde, juryArray, toegekendeTelevote, huidi
     lastScore = punten;
   });
 
-  // Toon gecentreerd scoreboard
   return `
     <div style="display:flex;justify-content:center;width:100%;margin-top:0.6em;margin-bottom:0.3em;">
       <div style="background:rgba(0,0,0,0.16);border-radius:0.6em;padding:0.54em 1.1em 0.7em 1.1em;box-shadow:0 2px 8px #0002; font-size:1em;max-width:480px;width:100%;">
@@ -204,6 +194,31 @@ function renderSlide(slide) {
   el.innerHTML = '';
   const slideDiv = document.createElement('div');
   slideDiv.className = 'slide active';
+
+  // --- Toevoeging: gelijkstand melding bij televote-voor en televote-na ---
+  let gelijkTekst = '';
+  if (slide.type === 'televote-voor' || slide.type === 'televote-na') {
+    // Bepaal huidige jury+televote tussenstand op dit moment
+    const juryArray = data.jury;
+    const toegekendeTelevote = slide.ontvangenTelevote || {};
+    let totaal = {};
+    juryArray.forEach(j => Object.keys(j.punten).forEach(s => (totaal[s] = 0)));
+    juryArray.forEach(j =>
+      Object.entries(j.punten).forEach(([school, punten]) => { totaal[school] += punten; })
+    );
+    Object.entries(toegekendeTelevote).forEach(([school, punten]) => { totaal[school] += punten; });
+
+    const puntenVanSchool = totaal[slide.school];
+    const gelijkMet = Object.keys(totaal)
+      .filter(s => s !== slide.school && totaal[s] === puntenVanSchool);
+
+    if (gelijkMet.length) {
+      gelijkTekst = `<div style="color:#ffd900;font-size:0.95em;margin:0.5em 0;">
+        ⚠️ <b>${slide.school}</b> heeft op dit moment evenveel punten als: <b>${gelijkMet.join(', ')}</b>
+      </div>`;
+    }
+  }
+  // --- Einde toevoeging gelijkstand ---
 
   let scoreboard = '';
 
@@ -278,6 +293,7 @@ function renderSlide(slide) {
     slideDiv.innerHTML = `
       <h2 style="margin-bottom:0.1em;">${slide.type === 'televote-voor' ? 'Televote voor' : 'Nieuwe stand'} ${slide.school}</h2>
       ${scoreboard}
+      ${gelijkTekst}
       ${slide.type === 'televote-voor' ? `
         <p>Huidige punten: <span class="punten">${slide.huidig}</span></p>
         <div style="font-size:0.85em;margin:0.5em 0 0.25em 0;">
