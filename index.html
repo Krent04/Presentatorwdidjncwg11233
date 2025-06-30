@@ -3,17 +3,114 @@
 <head>
   <meta charset="UTF-8">
   <title>Puntenanimatie Songfestival</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #181d2b;
+      color: #fff;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 1.15em;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+    body {
+      min-height: 100vh;
+      min-width: 100vw;
+      width: 100vw;
+      height: 100vh;
+      box-sizing: border-box;
+    }
+    #slideshow {
+      position: absolute;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      background: transparent;
+    }
+    .slide {
+      margin: 0 auto;
+      width: min(98vw,750px);
+      min-height: 340px;
+      max-width: 98vw;
+      background: rgba(18,20,30,0.95);
+      box-shadow: 0 2px 34px #0007;
+      border-radius: 0.9em;
+      padding: 2.5em 2.5em 2em 2.5em;
+      box-sizing: border-box;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* fade effect */
+      animation: fadein 0.33s;
+    }
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity: 1; transform: none;}
+    }
+    .presentator-foto {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #00ffd9;
+      margin: 0.1em 0 0.6em 0;
+      display: block;
+      background: #fff1;
+    }
+    h2, h3 { margin-top: 0.38em; margin-bottom: 0.2em; }
+    ul, ol { width: 100%; max-width: 480px; margin: 0.5em auto 0.4em auto; }
+    li { margin: 0.1em 0; }
+    .punten {
+      color: #00ffd9;
+      font-weight: bold;
+      font-variant-numeric: tabular-nums;
+      margin-left: 0.7em;
+    }
+    .school {
+      margin-right: 0.5em;
+      font-weight: 500;
+    }
+    #fullscreenBtn {
+      position: fixed;
+      top: 12px;
+      right: 14px;
+      z-index: 300;
+      font-size: 1.07em;
+      padding: 0.4em 1.1em;
+      border-radius: 0.5em;
+      background: #00ffd9;
+      color: #181d2b;
+      border: none;
+      box-shadow: 0 2px 8px #00ffd988;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    #fullscreenBtn:hover {
+      background: #1afdc9;
+    }
+    @media (max-width: 800px) {
+      .slide {
+        padding: 1.2em 0.7em 1.2em 0.7em;
+      }
+      h2, h3 { font-size: 1.07em; }
+    }
+    @media (max-width: 430px) {
+      .slide {
+        padding: 0.5em 0.1em 0.5em 0.1em;
+        min-height: 180px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div id="slideshow" tabindex="0">
-    <!-- Slides worden hier dynamisch geladen -->
-    <div class="slide active">
-      <h2>Puntenanimatie Songfestival</h2>
-      <p>Gebruik de spatiebalk, pijltjestoetsen of tik aan de rechter/ linker kant van je scherm voor navigatie.</p>
-    </div>
-  </div>
+  <button id="fullscreenBtn" title="Volledig scherm aan/uit">⛶ Volledig scherm</button>
+  <div id="slideshow"></div>
   <script src="presentator.js"></script>
 </body>
 </html>
