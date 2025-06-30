@@ -212,7 +212,6 @@ function renderSlide(slide) {
     slideDiv.innerHTML = `
       <div style="font-size:0.97em;margin-bottom:0.2em;">Vakjury ${slide.juryNummer} van ${slide.juryTotal}</div>
       ${renderJuryProgress(slide.juryIndex, slide.juryTotal, slide.allJuryNamen)}
-      <img src="${p.foto}" alt="${p.naam}" class="presentator-foto">
       <h2>Volgende vakjury: ${slide.school}</h2>
       <h3>${p.naam}</h3>
       <p>${p.bio}</p>
