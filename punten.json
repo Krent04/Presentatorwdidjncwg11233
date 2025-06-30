@@ -1,0 +1,282 @@
+{
+  "jury": [
+    {
+      "school": "Antwerpen",
+      "presentator": {
+        "naam": "Lotte Peeters",
+        "bio": "Vierdejaars actrice, bekend om haar improvisatietalent.",
+        "foto": "presentators/antwerpen.jpg"
+      },
+      "punten": {
+        "ATKA": 8,
+        "Antwerpen": 0,
+        "Arnhem": 12,
+        "Brussel": 2,
+        "Den Bosch": 1,
+        "Filmacademie": 6,
+        "Gent": 5,
+        "Leuven": 3,
+        "Maastricht": 10,
+        "Rotterdam": 7,
+        "Tilburg": 4,
+        "Utrecht": 0
+      }
+    },
+    {
+      "school": "Arnhem",
+      "presentator": {
+        "naam": "Ruben van Dijk",
+        "bio": "Speelde vorig jaar de hoofdrol in de eindvoorstelling.",
+        "foto": "presentators/arnhem.jpg"
+      },
+      "punten": {
+        "ATKA": 4,
+        "Antwerpen": 1,
+        "Arnhem": 0,
+        "Brussel": 3,
+        "Den Bosch": 2,
+        "Filmacademie": 7,
+        "Gent": 5,
+        "Leuven": 6,
+        "Maastricht": 12,
+        "Rotterdam": 8,
+        "Tilburg": 10,
+        "Utrecht": 0
+      }
+    },
+    {
+      "school": "ATKA",
+      "presentator": {
+        "naam": "Jesse de Groot",
+        "bio": "Winnaar 2023, houdt van bananen en badpakken.",
+        "foto": "presentators/atka.jpg"
+      },
+      "punten": {
+        "ATKA": 0,
+        "Antwerpen": 3,
+        "Arnhem": 10,
+        "Brussel": 4,
+        "Den Bosch": 2,
+        "Filmacademie": 5,
+        "Gent": 6,
+        "Leuven": 1,
+        "Maastricht": 12,
+        "Rotterdam": 8,
+        "Tilburg": 7,
+        "Utrecht": 0
+      }
+    },
+    {
+      "school": "Brussel",
+      "presentator": {
+        "naam": "Marie De Smet",
+        "bio": "Bekend van Studio Brussel en actrice in verschillende Vlaamse series.",
+        "foto": "presentators/brussel.jpg"
+      },
+      "punten": {
+        "ATKA": 5,
+        "Antwerpen": 4,
+        "Arnhem": 10,
+        "Brussel": 0,
+        "Den Bosch": 8,
+        "Filmacademie": 1,
+        "Gent": 3,
+        "Leuven": 2,
+        "Maastricht": 12,
+        "Rotterdam": 7,
+        "Tilburg": 6,
+        "Utrecht": 0
+      }
+    },
+    {
+      "school": "Den Bosch",
+      "presentator": {
+        "naam": "Sanne Jansen",
+        "bio": "Zangtalent en dit jaar voor het eerst presentator.",
+        "foto": "presentators/denbosch.jpg"
+      },
+      "punten": {
+        "ATKA": 2,
+        "Antwerpen": 10,
+        "Arnhem": 7,
+        "Brussel": 1,
+        "Den Bosch": 0,
+        "Filmacademie": 3,
+        "Gent": 8,
+        "Leuven": 4,
+        "Maastricht": 12,
+        "Rotterdam": 5,
+        "Tilburg": 6,
+        "Utrecht": 0
+      }
+    },
+    {
+      "school": "Filmacademie",
+      "presentator": {
+        "naam": "Hugo van der Meer",
+        "bio": "Regisseur van de openingsfilm van dit festival.",
+        "foto": "presentators/filmacademie.jpg"
+      },
+      "punten": {
+        "ATKA": 4,
+        "Antwerpen": 3,
+        "Arnhem": 12,
+        "Brussel": 2,
+        "Den Bosch": 8,
+        "Filmacademie": 0,
+        "Gent": 10,
+        "Leuven": 6,
+        "Maastricht": 7,
+        "Rotterdam": 1,
+        "Tilburg": 5,
+        "Utrecht": 0
+      }
+    },
+    {
+      "school": "Gent",
+      "presentator": {
+        "naam": "Elise Vandenberghe",
+        "bio": "Multitalent: speelt, zingt en schrijft eigen werk.",
+        "foto": "presentators/gent.jpg"
+      },
+      "punten": {
+        "ATKA": 6,
+        "Antwerpen": 8,
+        "Arnhem": 10,
+        "Brussel": 3,
+        "Den Bosch": 2,
+        "Filmacademie": 4,
+        "Gent": 0,
+        "Leuven": 1,
+        "Maastricht": 12,
+        "Rotterdam": 5,
+        "Tilburg": 7,
+        "Utrecht": 0
+      }
+    },
+    {
+      "school": "Leuven",
+      "presentator": {
+        "naam": "Tuur Declercq",
+        "bio": "Finalist bij Kunstbende en schrijft spoken word.",
+        "foto": "presentators/leuven.jpg"
+      },
+      "punten": {
+        "ATKA": 3,
+        "Antwerpen": 4,
+        "Arnhem": 8,
+        "Brussel": 1,
+        "Den Bosch": 6,
+        "Filmacademie": 2,
+        "Gent": 7,
+        "Leuven": 0,
+        "Maastricht": 12,
+        "Rotterdam": 10,
+        "Tilburg": 5,
+        "Utrecht": 0
+      }
+    },
+    {
+      "school": "Maastricht",
+      "presentator": {
+        "naam": "Lisa Smeets",
+        "bio": "Danst, zingt en acteert. Wint elk jaar de Limburgse quiz.",
+        "foto": "presentators/maastricht.jpg"
+      },
+      "punten": {
+        "ATKA": 8,
+        "Antwerpen": 5,
+        "Arnhem": 12,
+        "Brussel": 1,
+        "Den Bosch": 6,
+        "Filmacademie": 2,
+        "Gent": 3,
+        "Leuven": 7,
+        "Maastricht": 0,
+        "Rotterdam": 10,
+        "Tilburg": 4,
+        "Utrecht": 0
+      }
+    },
+    {
+      "school": "Rotterdam",
+      "presentator": {
+        "naam": "Ilias El Idrissi",
+        "bio": "Bekend van de slam poetry-scene en nu voor het eerst als jury.",
+        "foto": "presentators/rotterdam.jpg"
+      },
+      "punten": {
+        "ATKA": 4,
+        "Antwerpen": 2,
+        "Arnhem": 8,
+        "Brussel": 1,
+        "Den Bosch": 6,
+        "Filmacademie": 3,
+        "Gent": 12,
+        "Leuven": 10,
+        "Maastricht": 7,
+        "Rotterdam": 0,
+        "Tilburg": 5,
+        "Utrecht": 0
+      }
+    },
+    {
+      "school": "Tilburg",
+      "presentator": {
+        "naam": "Eva de Bruin",
+        "bio": "Zingt in jazzband en speelt in het Tilburgs studententheater.",
+        "foto": "presentators/tilburg.jpg"
+      },
+      "punten": {
+        "ATKA": 6,
+        "Antwerpen": 5,
+        "Arnhem": 10,
+        "Brussel": 1,
+        "Den Bosch": 8,
+        "Filmacademie": 3,
+        "Gent": 7,
+        "Leuven": 4,
+        "Maastricht": 12,
+        "Rotterdam": 2,
+        "Tilburg": 0,
+        "Utrecht": 0
+      }
+    },
+    {
+      "school": "Utrecht",
+      "presentator": {
+        "naam": "Noor van Dam",
+        "bio": "Utrechtse spoken word-artiest en theatermaker.",
+        "foto": "presentators/utrecht.jpg"
+      },
+      "punten": {
+        "ATKA": 3,
+        "Antwerpen": 6,
+        "Arnhem": 12,
+        "Brussel": 1,
+        "Den Bosch": 7,
+        "Filmacademie": 2,
+        "Gent": 5,
+        "Leuven": 4,
+        "Maastricht": 10,
+        "Rotterdam": 8,
+        "Tilburg": 0,
+        "Utrecht": 0
+      }
+    }
+  ],
+  "televote": {
+    "ATKA": 86,
+    "Antwerpen": 60,
+    "Arnhem": 87,
+    "Brussel": 45,
+    "Den Bosch": 48,
+    "Filmacademie": 48,
+    "Gent": 51,
+    "Leuven": 35,
+    "Maastricht": 89,
+    "Rotterdam": 62,
+    "Tilburg": 49,
+    "Utrecht": 36
+  }
+}
