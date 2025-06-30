@@ -23,7 +23,6 @@ function berekenTussenstand(juryArray, totIndex, televote = null) {
 }
 
 function ranglabel(n) {
-  // Nederlandse rangnummers: 1e, 2e, 3e, 4e, ...
   return `${n}e`;
 }
 
@@ -41,23 +40,24 @@ function maakJurySlides(juryArray) {
       juryIndex: i,
       punten: sorteerPunten(jury.punten)
     });
+    // Reminder alleen na de helft en na de laatste jury
+    let reminder = false;
+    if (i + 1 === half || i + 1 === juryArray.length) reminder = true;
     slides.push({
       type: 'tussenstand',
       totJury: i + 1,
+      reminder
     });
-    if (i + 1 === half || i + 1 === juryArray.length) {
-      slides.push({
-        type: 'reminder-greenroom',
-        moment: (i + 1 === half ? 'halverwege' : 'einde')
-      });
-    }
   });
 }
 
 function maakTelevoteSlides(televote, juryArray) {
+  // Bepaal de volgorde: van laagste naar hoogste na de vakjury's
   let tussenstand = berekenTussenstand(juryArray, juryArray.length);
-  const scholen = Object.keys(televote);
-  scholen.forEach((school, idx) => {
+  // Sorteer scholen volgens laagste naar hoogste punten
+  const scholenVolgorde = tussenstand.map(([school]) => school);
+
+  scholenVolgorde.forEach((school, idx) => {
     const huidig = tussenstand.find(([s]) => s === school)[1];
     const hoogste = Math.max(...tussenstand.map(([, p]) => p));
     const verschil = Math.max(0, hoogste - huidig + 1);
@@ -74,16 +74,15 @@ function maakTelevoteSlides(televote, juryArray) {
       nieuw,
       televote: televote[school]
     });
+    // Update tussenstand
     tussenstand = tussenstand.map(([s, p]) => [s, s === school ? nieuw : p]);
+    // Bij televote-tussenstanden géén reminder
     slides.push({
       type: 'tussenstand',
       totJury: juryArray.length,
-      televote: Object.fromEntries(scholen.slice(0, idx + 1).map(s => [s, televote[s]]))
+      televote: Object.fromEntries(scholenVolgorde.slice(0, idx + 1).map(s => [s, televote[s]])),
+      reminder: false
     });
-  });
-  slides.push({
-    type: 'reminder-greenroom',
-    moment: 'eind'
   });
 }
 
@@ -130,6 +129,13 @@ function renderSlide(slide) {
           `<li><span class="rang">${ranglabel(idx+1)}</span><span class="school">${school}</span><span class="punten">${punten}</span></li>`
         ).join('')}
       </ol>
+      ${
+        slide.reminder
+          ? `<p style="font-size:0.84em;margin-top:0.8em;color:#00ffd9;">
+              Presentator: bespreek deze tussenstand ook even met het publiek en neem de tijd om naar de greenroom te schakelen!
+            </p>`
+          : ''
+      }
     `;
   }
   if (slide.type === 'televote-voor') {
@@ -144,13 +150,6 @@ function renderSlide(slide) {
       <h2>Nieuwe stand ${slide.school}</h2>
       <p>Televote: <span class="punten">${slide.televote}</span></p>
       <p>Totaal: <span class="punten">${slide.nieuw}</span></p>
-    `;
-  }
-  if (slide.type === 'reminder-greenroom') {
-    slideDiv.innerHTML = `
-      <h2>Bespreek de tussenstand!</h2>
-      <p style="font-size:0.85em;">Presentator: neem even de tijd om de tussenstand met het publiek te bespreken.</p>
-      <p style="font-size:0.85em;">${slide.moment === 'eind' ? 'We gaan nu naar de greenroom en bereiden ons voor op het eindresultaat!' : 'Daarna schakelen we over naar de greenroom!'}</p>
     `;
   }
   if (slide.type === 'intro' || !slide.type) {
@@ -173,8 +172,6 @@ document.addEventListener('keydown', e => {
   if ([' ', 'Space', 'ArrowRight', 'Enter'].includes(e.key)) { nextSlide(); e.preventDefault(); }
   if (e.key === 'ArrowLeft') { prevSlide(); e.preventDefault(); }
 });
-
-// Touch: swipe/tap links = terug, rechts = vooruit
 document.getElementById('slideshow').addEventListener('touchend', function(e) {
   if (e.changedTouches && e.changedTouches.length) {
     const x = e.changedTouches[0].clientX;
@@ -187,8 +184,6 @@ document.getElementById('slideshow').addEventListener('touchend', function(e) {
     e.preventDefault();
   }
 });
-
-// Click: klik links = terug, rechts = vooruit
 document.getElementById('slideshow').addEventListener('click', function(e) {
   const x = e.clientX;
   const w = window.innerWidth;
