@@ -55,7 +55,10 @@ function maakTelevoteSlides(televote, juryArray) {
   // Bepaal de volgorde: van laagste naar hoogste na de vakjury's
   let tussenstand = berekenTussenstand(juryArray, juryArray.length);
   // Sorteer scholen volgens laagste naar hoogste punten
-  const scholenVolgorde = tussenstand.map(([school]) => school);
+  const scholenVolgorde = tussenstand
+    .slice() // copy so we don't mutate origin
+    .sort((a, b) => a[1] - b[1])
+    .map(([school]) => school);
 
   scholenVolgorde.forEach((school, idx) => {
     const huidig = tussenstand.find(([s]) => s === school)[1];
