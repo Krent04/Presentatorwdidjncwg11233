@@ -333,6 +333,26 @@ document.getElementById('slideshow').addEventListener('click', function(e) {
   }
 });
 
+// Fullscreen functionaliteit
+function goFullscreen() {
+  const elem = document.documentElement;
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.webkitRequestFullscreen) { /* Safari */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE11 */
+    elem.msRequestFullscreen();
+  }
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'f' || e.key === 'F11') {
+    goFullscreen();
+    e.preventDefault();
+  }
+});
+document.getElementById('fullscreenBtn')?.addEventListener('click', goFullscreen);
+
 fetch(DATA_PATH)
   .then(res => res.json())
   .then(json => {
