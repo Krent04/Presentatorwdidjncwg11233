@@ -3,21 +3,21 @@
     {
       "school": "Antwerpen",
       "presentator": {
-        "naam": "Fien De Wilde",
-        "bio": "Derdejaars actrice, bekend van haar energieke optredens.",
+        "naam": "Lotte Peeters",
+        "bio": "Energiek, verrassend, en altijd goed voor een grap op het podium.",
         "foto": "presentators/antwerpen.jpg"
       },
       "punten": {
         "ATKA": 12,
         "Antwerpen": 0,
-        "Arnhem": 10,
-        "Brussel": 4,
-        "Den Bosch": 8,
-        "Filmacademie": 2,
-        "Gent": 6,
-        "Leuven": 1,
-        "Maastricht": 7,
-        "Rotterdam": 5,
+        "Arnhem": 5,
+        "Brussel": 10,
+        "Den Bosch": 1,
+        "Filmacademie": 7,
+        "Gent": 4,
+        "Leuven": 8,
+        "Maastricht": 2,
+        "Rotterdam": 6,
         "Tilburg": 3,
         "Utrecht": 0
       }
@@ -25,258 +25,258 @@
     {
       "school": "Arnhem",
       "presentator": {
-        "naam": "Nick van Vliet",
-        "bio": "Improvisatietalent en vaste waarde in de Arnhemse toneelgroep.",
+        "naam": "Nina Jansen",
+        "bio": "Bekend om haar verrassende improvisaties en grote glimlach.",
         "foto": "presentators/arnhem.jpg"
       },
       "punten": {
-        "ATKA": 8,
+        "ATKA": 6,
         "Antwerpen": 10,
         "Arnhem": 0,
-        "Brussel": 12,
-        "Den Bosch": 6,
-        "Filmacademie": 5,
-        "Gent": 7,
-        "Leuven": 2,
-        "Maastricht": 1,
+        "Brussel": 8,
+        "Den Bosch": 3,
+        "Filmacademie": 12,
+        "Gent": 1,
+        "Leuven": 7,
+        "Maastricht": 5,
         "Rotterdam": 4,
-        "Tilburg": 3,
+        "Tilburg": 2,
         "Utrecht": 0
       }
     },
     {
       "school": "ATKA",
       "presentator": {
-        "naam": "Sanne de Groot",
-        "bio": "Winnaar publieksprijs 2024, houdt van dansen en zingen.",
+        "naam": "Jasper van Dijk",
+        "bio": "Speels, vindingrijk en dol op verrassingen in het theater.",
         "foto": "presentators/atka.jpg"
       },
       "punten": {
         "ATKA": 0,
-        "Antwerpen": 12,
-        "Arnhem": 8,
-        "Brussel": 2,
-        "Den Bosch": 7,
-        "Filmacademie": 10,
-        "Gent": 5,
-        "Leuven": 6,
+        "Antwerpen": 7,
+        "Arnhem": 12,
+        "Brussel": 4,
+        "Den Bosch": 8,
+        "Filmacademie": 5,
+        "Gent": 10,
+        "Leuven": 3,
         "Maastricht": 1,
-        "Rotterdam": 3,
-        "Tilburg": 4,
+        "Rotterdam": 6,
+        "Tilburg": 2,
         "Utrecht": 0
       }
     },
     {
       "school": "Brussel",
       "presentator": {
-        "naam": "Lucas Verbeeck",
-        "bio": "Acteur in Vlaamse series en fan van improvisatietheater.",
+        "naam": "Emma De Smet",
+        "bio": "Stand-up comédienne en fervent theaterfan.",
         "foto": "presentators/brussel.jpg"
       },
       "punten": {
-        "ATKA": 5,
-        "Antwerpen": 6,
-        "Arnhem": 3,
+        "ATKA": 8,
+        "Antwerpen": 5,
+        "Arnhem": 4,
         "Brussel": 0,
         "Den Bosch": 12,
-        "Filmacademie": 8,
-        "Gent": 10,
-        "Leuven": 7,
-        "Maastricht": 4,
-        "Rotterdam": 1,
-        "Tilburg": 2,
-        "Utrecht": 0
-      }
-    },
-    {
-      "school": "Den Bosch",
-      "presentator": {
-        "naam": "Emma van der Lee",
-        "bio": "Presentatrice en zangeres, bekend van lokale theaterproducties.",
-        "foto": "presentators/denbosch.jpg"
-      },
-      "punten": {
-        "ATKA": 6,
-        "Antwerpen": 3,
-        "Arnhem": 12,
-        "Brussel": 8,
-        "Den Bosch": 0,
         "Filmacademie": 2,
-        "Gent": 4,
-        "Leuven": 7,
-        "Maastricht": 5,
-        "Rotterdam": 10,
-        "Tilburg": 1,
-        "Utrecht": 0
-      }
-    },
-    {
-      "school": "Filmacademie",
-      "presentator": {
-        "naam": "Samira van Dongen",
-        "bio": "Regisseuse en scenarist, winnaar van het kortfilmfestival.",
-        "foto": "presentators/filmacademie.jpg"
-      },
-      "punten": {
-        "ATKA": 7,
-        "Antwerpen": 5,
-        "Arnhem": 6,
-        "Brussel": 4,
-        "Den Bosch": 10,
-        "Filmacademie": 0,
-        "Gent": 12,
-        "Leuven": 8,
-        "Maastricht": 1,
-        "Rotterdam": 2,
-        "Tilburg": 3,
-        "Utrecht": 0
-      }
-    },
-    {
-      "school": "Gent",
-      "presentator": {
-        "naam": "Lars De Wilde",
-        "bio": "Cabaretier en theatermaker, bekend om zijn scherpe grappen.",
-        "foto": "presentators/gent.jpg"
-      },
-      "punten": {
-        "ATKA": 8,
-        "Antwerpen": 6,
-        "Arnhem": 4,
-        "Brussel": 5,
-        "Den Bosch": 2,
-        "Filmacademie": 12,
-        "Gent": 0,
-        "Leuven": 10,
-        "Maastricht": 3,
+        "Gent": 3,
+        "Leuven": 6,
+        "Maastricht": 10,
         "Rotterdam": 7,
         "Tilburg": 1,
         "Utrecht": 0
       }
     },
     {
+      "school": "Den Bosch",
+      "presentator": {
+        "naam": "Sophie van den Heuvel",
+        "bio": "Zangeres, theatermaker en expert in verrassende plotwendingen.",
+        "foto": "presentators/denbosch.jpg"
+      },
+      "punten": {
+        "ATKA": 5,
+        "Antwerpen": 12,
+        "Arnhem": 8,
+        "Brussel": 3,
+        "Den Bosch": 0,
+        "Filmacademie": 10,
+        "Gent": 4,
+        "Leuven": 1,
+        "Maastricht": 6,
+        "Rotterdam": 2,
+        "Tilburg": 7,
+        "Utrecht": 0
+      }
+    },
+    {
+      "school": "Filmacademie",
+      "presentator": {
+        "naam": "Milan van Vliet",
+        "bio": "Regisseur en scenarioschrijver, houdt van spannende ontknopingen.",
+        "foto": "presentators/filmacademie.jpg"
+      },
+      "punten": {
+        "ATKA": 7,
+        "Antwerpen": 8,
+        "Arnhem": 6,
+        "Brussel": 1,
+        "Den Bosch": 9,
+        "Filmacademie": 0,
+        "Gent": 12,
+        "Leuven": 2,
+        "Maastricht": 5,
+        "Rotterdam": 4,
+        "Tilburg": 10,
+        "Utrecht": 0
+      }
+    },
+    {
+      "school": "Gent",
+      "presentator": {
+        "naam": "Mats Vercauteren",
+        "bio": "Jonge kameleon, voelt zich thuis op elk podium.",
+        "foto": "presentators/gent.jpg"
+      },
+      "punten": {
+        "ATKA": 3,
+        "Antwerpen": 6,
+        "Arnhem": 2,
+        "Brussel": 12,
+        "Den Bosch": 5,
+        "Filmacademie": 1,
+        "Gent": 0,
+        "Leuven": 10,
+        "Maastricht": 4,
+        "Rotterdam": 7,
+        "Tilburg": 8,
+        "Utrecht": 0
+      }
+    },
+    {
       "school": "Leuven",
       "presentator": {
-        "naam": "Jolien Maes",
-        "bio": "Schrijft en speelt eigen stukken, winnaar van de schrijfwedstrijd 2023.",
+        "naam": "Tom Peeters",
+        "bio": "Winnaar schrijfwedstrijd, bekend om zijn spannende verhalen.",
         "foto": "presentators/leuven.jpg"
       },
       "punten": {
         "ATKA": 2,
-        "Antwerpen": 4,
-        "Arnhem": 7,
-        "Brussel": 6,
-        "Den Bosch": 1,
-        "Filmacademie": 10,
+        "Antwerpen": 3,
+        "Arnhem": 10,
+        "Brussel": 5,
+        "Den Bosch": 7,
+        "Filmacademie": 4,
         "Gent": 8,
         "Leuven": 0,
-        "Maastricht": 12,
-        "Rotterdam": 5,
-        "Tilburg": 3,
+        "Maastricht": 11,
+        "Rotterdam": 12,
+        "Tilburg": 6,
         "Utrecht": 0
       }
     },
     {
       "school": "Maastricht",
       "presentator": {
-        "naam": "Noa Janssen",
-        "bio": "Danseres, actrice en vaste quizkampioen van haar klas.",
+        "naam": "Daan Smeets",
+        "bio": "Danser, theatermaker, en eeuwig finalespeler in quizzen.",
         "foto": "presentators/maastricht.jpg"
       },
       "punten": {
-        "ATKA": 3,
-        "Antwerpen": 5,
-        "Arnhem": 12,
+        "ATKA": 1,
+        "Antwerpen": 11,
+        "Arnhem": 3,
         "Brussel": 7,
         "Den Bosch": 2,
         "Filmacademie": 8,
-        "Gent": 10,
-        "Leuven": 4,
+        "Gent": 9,
+        "Leuven": 12,
         "Maastricht": 0,
-        "Rotterdam": 1,
-        "Tilburg": 6,
+        "Rotterdam": 5,
+        "Tilburg": 4,
         "Utrecht": 0
       }
     },
     {
       "school": "Rotterdam",
       "presentator": {
-        "naam": "Mick de Boer",
-        "bio": "Slam poet en toneelspeler, debuteerde in 2024.",
+        "naam": "Sara Willems",
+        "bio": "Poëet en theatermaker, houdt van verrassingen op het podium.",
         "foto": "presentators/rotterdam.jpg"
       },
       "punten": {
-        "ATKA": 10,
-        "Antwerpen": 2,
-        "Arnhem": 4,
-        "Brussel": 8,
-        "Den Bosch": 7,
-        "Filmacademie": 12,
+        "ATKA": 4,
+        "Antwerpen": 9,
+        "Arnhem": 7,
+        "Brussel": 2,
+        "Den Bosch": 6,
+        "Filmacademie": 11,
         "Gent": 5,
-        "Leuven": 6,
+        "Leuven": 8,
         "Maastricht": 3,
         "Rotterdam": 0,
-        "Tilburg": 1,
+        "Tilburg": 10,
         "Utrecht": 0
       }
     },
     {
       "school": "Tilburg",
       "presentator": {
-        "naam": "Eva van der Velden",
-        "bio": "Zingt, speelt in musicals en is actief in het studententheater.",
+        "naam": "Janneke de Vries",
+        "bio": "Musicalster en veelzijdig entertainer.",
         "foto": "presentators/tilburg.jpg"
       },
       "punten": {
-        "ATKA": 2,
-        "Antwerpen": 7,
-        "Arnhem": 3,
-        "Brussel": 4,
-        "Den Bosch": 6,
-        "Filmacademie": 5,
-        "Gent": 12,
-        "Leuven": 8,
-        "Maastricht": 0,
-        "Rotterdam": 10,
+        "ATKA": 8,
+        "Antwerpen": 1,
+        "Arnhem": 11,
+        "Brussel": 6,
+        "Den Bosch": 4,
+        "Filmacademie": 2,
+        "Gent": 7,
+        "Leuven": 5,
+        "Maastricht": 9,
+        "Rotterdam": 12,
         "Tilburg": 0,
-        "Utrecht": 1
+        "Utrecht": 0
       }
     },
     {
       "school": "Utrecht",
       "presentator": {
-        "naam": "Bram Blom",
-        "bio": "Theatermaker en spoken word-artiest met Utrechtse roots.",
+        "naam": "Koen Bakker",
+        "bio": "Theatermaker, presentator en meester van de spanning.",
         "foto": "presentators/utrecht.jpg"
       },
       "punten": {
-        "ATKA": 3,
-        "Antwerpen": 8,
-        "Arnhem": 7,
-        "Brussel": 2,
-        "Den Bosch": 6,
-        "Filmacademie": 12,
-        "Gent": 5,
-        "Leuven": 10,
-        "Maastricht": 4,
+        "ATKA": 9,
+        "Antwerpen": 2,
+        "Arnhem": 8,
+        "Brussel": 6,
+        "Den Bosch": 11,
+        "Filmacademie": 3,
+        "Gent": 2,
+        "Leuven": 4,
+        "Maastricht": 7,
         "Rotterdam": 1,
-        "Tilburg": 0,
+        "Tilburg": 5,
         "Utrecht": 0
       }
     }
   ],
   "televote": {
-    "ATKA": 66,
-    "Antwerpen": 62,
-    "Arnhem": 68,
-    "Brussel": 61,
-    "Den Bosch": 71,
-    "Filmacademie": 65,
-    "Gent": 69,
-    "Leuven": 67,
-    "Maastricht": 72,
-    "Rotterdam": 70,
-    "Tilburg": 66,
-    "Utrecht": 65
+    "ATKA": 79,
+    "Antwerpen": 75,
+    "Arnhem": 81,
+    "Brussel": 84,
+    "Den Bosch": 80,
+    "Filmacademie": 82,
+    "Gent": 78,
+    "Leuven": 80,
+    "Maastricht": 83,
+    "Rotterdam": 77,
+    "Tilburg": 80,
+    "Utrecht": 79
   }
 }
