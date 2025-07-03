@@ -2,8 +2,58 @@
   "jury": [
     {
       "school": "Antwerpen",
+      "presentator": {
+        "naam": "Fien De Wilde",
+        "bio": "Bekend om haar energieke optredens en scherpe improvisaties.",
+        "foto": "presentators/antwerpen.jpg"
+      },
       "punten": {
         "ATKA": 12,
+        "Antwerpen": 0,
+        "Arnhem": 8,
+        "Brussel": 7,
+        "Den Bosch": 6,
+        "Filmacademie": 10,
+        "Gent": 4,
+        "Leuven": 3,
+        "Maastricht": 5,
+        "Rotterdam": 2,
+        "Tilburg": 1,
+        "Utrecht": 0
+      }
+    },
+    {
+      "school": "Arnhem",
+      "presentator": {
+        "naam": "Jesse Meijer",
+        "bio": "Altijd recht voor z'n raap en geliefd bij het publiek.",
+        "foto": "presentators/arnhem.jpg"
+      },
+      "punten": {
+        "ATKA": 10,
+        "Antwerpen": 8,
+        "Arnhem": 0,
+        "Brussel": 6,
+        "Den Bosch": 5,
+        "Filmacademie": 12,
+        "Gent": 7,
+        "Leuven": 4,
+        "Maastricht": 3,
+        "Rotterdam": 2,
+        "Tilburg": 1,
+        "Utrecht": 0
+      }
+    },
+    {
+      "school": "ATKA",
+      "presentator": {
+        "naam": "Noor van Dijk",
+        "bio": "Een gedreven theatermaker met een passie voor jong talent.",
+        "foto": "presentators/atka.jpg"
+      },
+      "punten": {
+        "ATKA": 0,
+        "Antwerpen": 12,
         "Arnhem": 10,
         "Brussel": 8,
         "Den Bosch": 7,
@@ -13,210 +63,220 @@
         "Maastricht": 3,
         "Rotterdam": 2,
         "Tilburg": 1,
-        "Utrecht": 0,
-        "Antwerpen": 0
-      }
-    },
-    {
-      "school": "Arnhem",
-      "punten": {
-        "ATKA": 8,
-        "Antwerpen": 12,
-        "Brussel": 10,
-        "Den Bosch": 1,
-        "Filmacademie": 7,
-        "Gent": 6,
-        "Leuven": 5,
-        "Maastricht": 4,
-        "Rotterdam": 3,
-        "Tilburg": 2,
-        "Utrecht": 0,
-        "Arnhem": 0
-      }
-    },
-    {
-      "school": "ATKA",
-      "punten": {
-        "Antwerpen": 2,
-        "Arnhem": 1,
-        "Brussel": 12,
-        "Den Bosch": 10,
-        "Filmacademie": 8,
-        "Gent": 7,
-        "Leuven": 6,
-        "Maastricht": 5,
-        "Rotterdam": 4,
-        "Tilburg": 3,
-        "Utrecht": 0,
-        "ATKA": 0
+        "Utrecht": 0
       }
     },
     {
       "school": "Brussel",
+      "presentator": {
+        "naam": "Louise Martens",
+        "bio": "Een frisse stem uit de Vlaamse theaterwereld.",
+        "foto": "presentators/brussel.jpg"
+      },
       "punten": {
-        "ATKA": 3,
-        "Antwerpen": 2,
-        "Arnhem": 5,
-        "Den Bosch": 12,
-        "Filmacademie": 10,
-        "Gent": 8,
-        "Leuven": 7,
-        "Maastricht": 6,
-        "Rotterdam": 1,
-        "Tilburg": 4,
-        "Utrecht": 0,
-        "Brussel": 0
+        "ATKA": 6,
+        "Antwerpen": 10,
+        "Arnhem": 12,
+        "Brussel": 0,
+        "Den Bosch": 8,
+        "Filmacademie": 7,
+        "Gent": 4,
+        "Leuven": 5,
+        "Maastricht": 3,
+        "Rotterdam": 2,
+        "Tilburg": 1,
+        "Utrecht": 0
       }
     },
     {
       "school": "Den Bosch",
+      "presentator": {
+        "naam": "Timo van Leeuwen",
+        "bio": "Bekend om zijn energieke hosting en liefde voor musicals.",
+        "foto": "presentators/denbosch.jpg"
+      },
       "punten": {
-        "ATKA": 7,
+        "ATKA": 4,
         "Antwerpen": 6,
-        "Arnhem": 4,
-        "Brussel": 3,
-        "Filmacademie": 12,
-        "Gent": 10,
-        "Leuven": 8,
-        "Maastricht": 5,
+        "Arnhem": 7,
+        "Brussel": 10,
+        "Den Bosch": 0,
+        "Filmacademie": 8,
+        "Gent": 5,
+        "Leuven": 3,
+        "Maastricht": 12,
         "Rotterdam": 2,
         "Tilburg": 1,
-        "Utrecht": 0,
-        "Den Bosch": 0
+        "Utrecht": 0
       }
     },
     {
       "school": "Filmacademie",
+      "presentator": {
+        "naam": "Yara Blom",
+        "bio": "Altijd creatief, altijd verrassend, altijd stijlvol.",
+        "foto": "presentators/filmacademie.jpg"
+      },
       "punten": {
-        "ATKA": 5,
-        "Antwerpen": 4,
-        "Arnhem": 3,
-        "Brussel": 2,
-        "Den Bosch": 1,
-        "Gent": 12,
-        "Leuven": 10,
-        "Maastricht": 8,
-        "Rotterdam": 7,
-        "Tilburg": 6,
-        "Utrecht": 0,
-        "Filmacademie": 0
+        "ATKA": 7,
+        "Antwerpen": 5,
+        "Arnhem": 10,
+        "Brussel": 12,
+        "Den Bosch": 6,
+        "Filmacademie": 0,
+        "Gent": 8,
+        "Leuven": 3,
+        "Maastricht": 4,
+        "Rotterdam": 2,
+        "Tilburg": 1,
+        "Utrecht": 0
       }
     },
     {
       "school": "Gent",
+      "presentator": {
+        "naam": "Mathias De Clercq",
+        "bio": "Een klassiek geschoolde acteur met flair en humor.",
+        "foto": "presentators/gent.jpg"
+      },
       "punten": {
-        "ATKA": 6,
-        "Antwerpen": 5,
-        "Arnhem": 8,
-        "Brussel": 7,
-        "Den Bosch": 4,
-        "Filmacademie": 3,
-        "Leuven": 2,
-        "Maastricht": 12,
-        "Rotterdam": 10,
+        "ATKA": 5,
+        "Antwerpen": 4,
+        "Arnhem": 6,
+        "Brussel": 12,
+        "Den Bosch": 10,
+        "Filmacademie": 7,
+        "Gent": 0,
+        "Leuven": 8,
+        "Maastricht": 3,
+        "Rotterdam": 2,
         "Tilburg": 1,
-        "Utrecht": 0,
-        "Gent": 0
+        "Utrecht": 0
       }
     },
     {
       "school": "Leuven",
+      "presentator": {
+        "naam": "Lise Van der Meer",
+        "bio": "Sprankelend, jong en vol theaterliefde.",
+        "foto": "presentators/leuven.jpg"
+      },
       "punten": {
-        "ATKA": 1,
-        "Antwerpen": 2,
-        "Arnhem": 3,
-        "Brussel": 4,
-        "Den Bosch": 5,
-        "Filmacademie": 6,
-        "Gent": 7,
-        "Maastricht": 8,
-        "Rotterdam": 10,
-        "Tilburg": 12,
-        "Utrecht": 0,
-        "Leuven": 0
+        "ATKA": 6,
+        "Antwerpen": 3,
+        "Arnhem": 8,
+        "Brussel": 10,
+        "Den Bosch": 7,
+        "Filmacademie": 5,
+        "Gent": 12,
+        "Leuven": 0,
+        "Maastricht": 4,
+        "Rotterdam": 2,
+        "Tilburg": 1,
+        "Utrecht": 0
       }
     },
     {
       "school": "Maastricht",
+      "presentator": {
+        "naam": "Eva Janssen",
+        "bio": "Publieksfavoriet en scherp als een mes.",
+        "foto": "presentators/maastricht.jpg"
+      },
       "punten": {
-        "ATKA": 10,
-        "Antwerpen": 1,
-        "Arnhem": 2,
-        "Brussel": 3,
-        "Den Bosch": 4,
-        "Filmacademie": 5,
-        "Gent": 6,
-        "Leuven": 7,
-        "Rotterdam": 8,
-        "Tilburg": 12,
-        "Utrecht": 0,
-        "Maastricht": 0
+        "ATKA": 8,
+        "Antwerpen": 5,
+        "Arnhem": 6,
+        "Brussel": 12,
+        "Den Bosch": 10,
+        "Filmacademie": 4,
+        "Gent": 7,
+        "Leuven": 3,
+        "Maastricht": 0,
+        "Rotterdam": 2,
+        "Tilburg": 1,
+        "Utrecht": 0
       }
     },
     {
       "school": "Rotterdam",
+      "presentator": {
+        "naam": "Milan Peters",
+        "bio": "Zijn timing is legendarisch.",
+        "foto": "presentators/rotterdam.jpg"
+      },
       "punten": {
-        "ATKA": 4,
-        "Antwerpen": 5,
-        "Arnhem": 6,
-        "Brussel": 7,
-        "Den Bosch": 8,
-        "Filmacademie": 10,
-        "Gent": 12,
-        "Leuven": 1,
-        "Maastricht": 2,
-        "Tilburg": 3,
-        "Utrecht": 0,
-        "Rotterdam": 0
+        "ATKA": 9,
+        "Antwerpen": 6,
+        "Arnhem": 8,
+        "Brussel": 10,
+        "Den Bosch": 7,
+        "Filmacademie": 12,
+        "Gent": 4,
+        "Leuven": 3,
+        "Maastricht": 5,
+        "Rotterdam": 0,
+        "Tilburg": 1,
+        "Utrecht": 0
       }
     },
     {
       "school": "Tilburg",
+      "presentator": {
+        "naam": "Rick Hoeks",
+        "bio": "Vrolijk, vriendelijk en vol verrassingen.",
+        "foto": "presentators/tilburg.jpg"
+      },
       "punten": {
-        "ATKA": 8,
-        "Antwerpen": 7,
-        "Arnhem": 6,
-        "Brussel": 5,
-        "Den Bosch": 4,
-        "Filmacademie": 3,
-        "Gent": 2,
-        "Leuven": 1,
-        "Maastricht": 10,
-        "Rotterdam": 12,
-        "Utrecht": 0,
-        "Tilburg": 0
+        "ATKA": 7,
+        "Antwerpen": 4,
+        "Arnhem": 12,
+        "Brussel": 10,
+        "Den Bosch": 6,
+        "Filmacademie": 8,
+        "Gent": 5,
+        "Leuven": 3,
+        "Maastricht": 2,
+        "Rotterdam": 1,
+        "Tilburg": 0,
+        "Utrecht": 0
       }
     },
     {
       "school": "Utrecht",
+      "presentator": {
+        "naam": "Sophie Willems",
+        "bio": "Altijd verrassend en professioneel.",
+        "foto": "presentators/utrecht.jpg"
+      },
       "punten": {
-        "ATKA": 8,
-        "Antwerpen": 10,
-        "Arnhem": 12,
-        "Brussel": 1,
-        "Den Bosch": 2,
-        "Filmacademie": 3,
-        "Gent": 4,
-        "Leuven": 5,
-        "Maastricht": 6,
-        "Rotterdam": 7,
-        "Tilburg": 0,
+        "ATKA": 3,
+        "Antwerpen": 7,
+        "Arnhem": 9,
+        "Brussel": 10,
+        "Den Bosch": 6,
+        "Filmacademie": 5,
+        "Gent": 8,
+        "Leuven": 12,
+        "Maastricht": 4,
+        "Rotterdam": 2,
+        "Tilburg": 1,
         "Utrecht": 0
       }
     }
   ],
   "televote": {
-    "ATKA": 100,
-    "Antwerpen": 100,
-    "Arnhem": 75,
-    "Brussel": 75,
-    "Den Bosch": 62,
-    "Filmacademie": 62,
-    "Gent": 62,
-    "Leuven": 52,
-    "Maastricht": 52,
-    "Rotterdam": 52,
-    "Tilburg": 52,
-    "Utrecht": 52
+    "ATKA": 92,
+    "Antwerpen": 48,
+    "Arnhem": 98,
+    "Brussel": 60,
+    "Den Bosch": 38,
+    "Filmacademie": 71,
+    "Gent": 44,
+    "Leuven": 46,
+    "Maastricht": 43,
+    "Rotterdam": 53,
+    "Tilburg": 41,
+    "Utrecht": 62
   }
 }
