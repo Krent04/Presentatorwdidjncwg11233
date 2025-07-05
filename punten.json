@@ -1,246 +1,175 @@
-{
+
+  {
   "jury": [
     {
-      "school": "Antwerpen",
-      "presentator": "Emma Janssens",
-      "bio": "Emma is een derdejaars student aan het Koninklijk Conservatorium Antwerpen en fervent jazzliefhebber.",
+      "school": "Utrecht",
+      "presentator": {
+        "naam": "Eva Blom",
+        "bio": "Theatermaker met een passie voor mime.",
+        "foto": "presentators/utrecht.jpg"
+      },
       "punten": {
-        "Utrecht": 2,
-        "Arnhem": 12,
-        "ATKA": 8,
-        "Brussel": 7,
-        "Den Bosch": 1,
-        "Filmacademie": 10,
-        "Gent": 3,
-        "Leuven": 4,
-        "Maastricht": 5,
-        "Rotterdam": 6,
-        "Tilburg": 0,
-        "Antwerpen": 0
-      }
-    },
-    {
-      "school": "Arnhem",
-      "presentator": "Jasper de Groot",
-      "bio": "Jasper is een energieke theatermaker en presentator, bekend van verschillende festivals in Arnhem.",
-      "punten": {
-        "Utrecht": 4,
-        "Antwerpen": 12,
-        "ATKA": 10,
-        "Brussel": 8,
-        "Den Bosch": 6,
-        "Filmacademie": 7,
-        "Gent": 2,
-        "Leuven": 5,
-        "Maastricht": 3,
-        "Rotterdam": 1,
-        "Tilburg": 0,
-        "Arnhem": 0
+        "ATKA": 1, "Antwerpen": 2, "Arnhem": 3, "Brussel": 4,
+        "Den Bosch": 5, "Filmacademie": 6, "Gent": 7, "Leuven": 8,
+        "Maastricht": 10, "Rotterdam": 12, "Tilburg": 0, "Utrecht": 0
       }
     },
     {
       "school": "ATKA",
-      "presentator": "Sanne Kuipers",
-      "bio": "Sanne is student aan de Academie voor Theater en Kleinkunst Amsterdam en droomt van een carrière op het toneel.",
+      "presentator": {
+        "naam": "Lars de Jong",
+        "bio": "Creatief schrijver en performer.",
+        "foto": "presentators/atka.jpg"
+      },
       "punten": {
-        "Utrecht": 6,
-        "Antwerpen": 10,
-        "Arnhem": 12,
-        "Brussel": 8,
-        "Den Bosch": 5,
-        "Filmacademie": 7,
-        "Gent": 2,
-        "Leuven": 4,
-        "Maastricht": 3,
-        "Rotterdam": 1,
-        "Tilburg": 0,
-        "ATKA": 0
+        "Utrecht": 1, "Antwerpen": 2, "Arnhem": 3, "Brussel": 4,
+        "Den Bosch": 5, "Filmacademie": 6, "Gent": 7, "Leuven": 8,
+        "Maastricht": 10, "Rotterdam": 12, "Tilburg": 0, "ATKA": 0
+      }
+    },
+    {
+      "school": "Antwerpen",
+      "presentator": {
+        "naam": "Sarah Peeters",
+        "bio": "Actrice en toneeldocent.",
+        "foto": "presentators/antwerpen.jpg"
+      },
+      "punten": {
+        "Utrecht": 2, "ATKA": 1, "Arnhem": 3, "Brussel": 4,
+        "Den Bosch": 5, "Filmacademie": 6, "Gent": 7, "Leuven": 8,
+        "Maastricht": 10, "Rotterdam": 12, "Tilburg": 0, "Antwerpen": 0
+      }
+    },
+    {
+      "school": "Arnhem",
+      "presentator": {
+        "naam": "Milan Visser",
+        "bio": "Regisseur met oog voor vernieuwing.",
+        "foto": "presentators/arnhem.jpg"
+      },
+      "punten": {
+        "Utrecht": 3, "ATKA": 2, "Antwerpen": 1, "Brussel": 4,
+        "Den Bosch": 5, "Filmacademie": 6, "Gent": 7, "Leuven": 8,
+        "Maastricht": 10, "Rotterdam": 12, "Tilburg": 0, "Arnhem": 0
       }
     },
     {
       "school": "Brussel",
-      "presentator": "Lucas Vermeulen",
-      "bio": "Lucas is een creatieve duizendpoot en student aan het RITCS in Brussel.",
+      "presentator": {
+        "naam": "Julie Martens",
+        "bio": "Mime-artiest en choreografe.",
+        "foto": "presentators/brussel.jpg"
+      },
       "punten": {
-        "Utrecht": 8,
-        "Antwerpen": 5,
-        "Arnhem": 12,
-        "ATKA": 10,
-        "Den Bosch": 7,
-        "Filmacademie": 6,
-        "Gent": 3,
-        "Leuven": 2,
-        "Maastricht": 4,
-        "Rotterdam": 1,
-        "Tilburg": 0,
-        "Brussel": 0
+        "Utrecht": 4, "ATKA": 3, "Antwerpen": 2, "Arnhem": 1,
+        "Den Bosch": 5, "Filmacademie": 6, "Gent": 7, "Leuven": 8,
+        "Maastricht": 10, "Rotterdam": 12, "Tilburg": 0, "Brussel": 0
       }
     },
     {
       "school": "Den Bosch",
-      "presentator": "Noor van Dijk",
-      "bio": "Noor is een gepassioneerde theaterdocent en speelt graag in producties in Den Bosch.",
+      "presentator": {
+        "naam": "Joris van Dijk",
+        "bio": "Podiumkunstenaar en docent.",
+        "foto": "presentators/denbosch.jpg"
+      },
       "punten": {
-        "Utrecht": 10,
-        "Antwerpen": 8,
-        "Arnhem": 12,
-        "ATKA": 6,
-        "Brussel": 7,
-        "Filmacademie": 5,
-        "Gent": 4,
-        "Leuven": 3,
-        "Maastricht": 2,
-        "Rotterdam": 1,
-        "Tilburg": 0,
-        "Den Bosch": 0
+        "Utrecht": 5, "ATKA": 4, "Antwerpen": 3, "Arnhem": 2,
+        "Brussel": 1, "Filmacademie": 6, "Gent": 7, "Leuven": 8,
+        "Maastricht": 10, "Rotterdam": 12, "Tilburg": 0, "Den Bosch": 0
       }
     },
     {
       "school": "Filmacademie",
-      "presentator": "Milan Witteveen",
-      "bio": "Milan is filmmaker in opleiding en heeft een passie voor verhalen die mensen raken.",
+      "presentator": {
+        "naam": "Sanne Jacobs",
+        "bio": "Filmmaker en scenarist.",
+        "foto": "presentators/filmacademie.jpg"
+      },
       "punten": {
-        "Utrecht": 12,
-        "Antwerpen": 10,
-        "Arnhem": 8,
-        "ATKA": 6,
-        "Brussel": 4,
-        "Den Bosch": 7,
-        "Gent": 5,
-        "Leuven": 3,
-        "Maastricht": 2,
-        "Rotterdam": 1,
-        "Tilburg": 0,
-        "Filmacademie": 0
+        "Utrecht": 6, "ATKA": 5, "Antwerpen": 4, "Arnhem": 3,
+        "Brussel": 2, "Den Bosch": 1, "Gent": 7, "Leuven": 8,
+        "Maastricht": 10, "Rotterdam": 12, "Tilburg": 0, "Filmacademie": 0
       }
     },
     {
       "school": "Gent",
-      "presentator": "Sarah De Wilde",
-      "bio": "Sarah is student drama in Gent en houdt van improvisatietheater en poëzie.",
+      "presentator": {
+        "naam": "Pieter Vandenberghe",
+        "bio": "Componist en theatermaker.",
+        "foto": "presentators/gent.jpg"
+      },
       "punten": {
-        "Utrecht": 3,
-        "Antwerpen": 6,
-        "Arnhem": 12,
-        "ATKA": 10,
-        "Brussel": 8,
-        "Den Bosch": 7,
-        "Filmacademie": 5,
-        "Leuven": 4,
-        "Maastricht": 2,
-        "Rotterdam": 1,
-        "Tilburg": 0,
-        "Gent": 0
+        "Utrecht": 7, "ATKA": 6, "Antwerpen": 5, "Arnhem": 4,
+        "Brussel": 3, "Den Bosch": 2, "Filmacademie": 1, "Leuven": 8,
+        "Maastricht": 10, "Rotterdam": 12, "Tilburg": 0, "Gent": 0
       }
     },
     {
       "school": "Leuven",
-      "presentator": "Tibo Jacobs",
-      "bio": "Tibo studeert aan het Lemmensinstituut in Leuven en is actief als acteur en zanger.",
+      "presentator": {
+        "naam": "Emma Willems",
+        "bio": "Improvisatie-actrice.",
+        "foto": "presentators/leuven.jpg"
+      },
       "punten": {
-        "Utrecht": 5,
-        "Antwerpen": 7,
-        "Arnhem": 12,
-        "ATKA": 10,
-        "Brussel": 8,
-        "Den Bosch": 6,
-        "Filmacademie": 4,
-        "Gent": 3,
-        "Maastricht": 2,
-        "Rotterdam": 1,
-        "Tilburg": 0,
-        "Leuven": 0
+        "Utrecht": 8, "ATKA": 7, "Antwerpen": 6, "Arnhem": 5,
+        "Brussel": 4, "Den Bosch": 3, "Filmacademie": 2, "Gent": 1,
+        "Maastricht": 10, "Rotterdam": 12, "Tilburg": 0, "Leuven": 0
       }
     },
     {
       "school": "Maastricht",
-      "presentator": "Lotte van Leeuwen",
-      "bio": "Lotte is vierdejaars aan de Toneelacademie Maastricht en houdt van muziektheater.",
+      "presentator": {
+        "naam": "Rik van den Berg",
+        "bio": "Acteur en theatermaker.",
+        "foto": "presentators/maastricht.jpg"
+      },
       "punten": {
-        "Utrecht": 7,
-        "Antwerpen": 9,
-        "Arnhem": 12,
-        "ATKA": 8,
-        "Brussel": 6,
-        "Den Bosch": 5,
-        "Filmacademie": 10,
-        "Gent": 4,
-        "Leuven": 2,
-        "Rotterdam": 1,
-        "Tilburg": 0,
-        "Maastricht": 0
+        "Utrecht": 10, "ATKA": 8, "Antwerpen": 7, "Arnhem": 6,
+        "Brussel": 5, "Den Bosch": 4, "Filmacademie": 3, "Gent": 2,
+        "Leuven": 1, "Rotterdam": 12, "Tilburg": 0, "Maastricht": 0
       }
     },
     {
       "school": "Rotterdam",
-      "presentator": "Daan Vink",
-      "bio": "Daan is een energieke performer en student aan Codarts Rotterdam.",
+      "presentator": {
+        "naam": "Noor Bakker",
+        "bio": "Theaterregisseur en performer.",
+        "foto": "presentators/rotterdam.jpg"
+      },
       "punten": {
-        "Utrecht": 9,
-        "Antwerpen": 11,
-        "Arnhem": 12,
-        "ATKA": 10,
-        "Brussel": 8,
-        "Den Bosch": 6,
-        "Filmacademie": 7,
-        "Gent": 5,
-        "Leuven": 4,
-        "Maastricht": 2,
-        "Tilburg": 1,
-        "Rotterdam": 0
+        "Utrecht": 12, "ATKA": 10, "Antwerpen": 8, "Arnhem": 7,
+        "Brussel": 6, "Den Bosch": 5, "Filmacademie": 4, "Gent": 3,
+        "Leuven": 2, "Maastricht": 1, "Tilburg": 0, "Rotterdam": 0
       }
     },
     {
       "school": "Tilburg",
-      "presentator": "Sophie van der Meer",
-      "bio": "Sophie studeert aan Fontys Tilburg en is actief in musicalprojecten.",
+      "presentator": {
+        "naam": "Sophie van Haren",
+        "bio": "Zangeres en musicalactrice.",
+        "foto": "presentators/tilburg.jpg"
+      },
       "punten": {
-        "Utrecht": 1,
-        "Antwerpen": 8,
-        "Arnhem": 12,
-        "ATKA": 10,
-        "Brussel": 7,
-        "Den Bosch": 6,
-        "Filmacademie": 5,
-        "Gent": 4,
-        "Leuven": 3,
-        "Maastricht": 2,
-        "Rotterdam": 9,
-        "Tilburg": 0
-      }
-    },
-    {
-      "school": "Utrecht",
-      "presentator": "Ruben Mulder",
-      "bio": "Ruben is student aan de HKU in Utrecht en houdt van interdisciplinair theater.",
-      "punten": {
-        "Antwerpen": 12,
-        "Arnhem": 10,
-        "ATKA": 8,
-        "Brussel": 7,
-        "Den Bosch": 6,
-        "Filmacademie": 5,
-        "Gent": 4,
-        "Leuven": 3,
-        "Maastricht": 2,
-        "Rotterdam": 1,
-        "Tilburg": 9,
-        "Utrecht": 0
+        "Utrecht": 1, "ATKA": 2, "Antwerpen": 3, "Arnhem": 4,
+        "Brussel": 5, "Den Bosch": 6, "Filmacademie": 7, "Gent": 8,
+        "Leuven": 10, "Maastricht": 12, "Rotterdam": 0, "Tilburg": 0
       }
     }
   ],
   "televote": {
-    "Antwerpen": 61,
-    "Arnhem": 67,
-    "ATKA": 56,
-    "Brussel": 52,
-    "Den Bosch": 62,
-    "Filmacademie": 55,
-    "Gent": 57,
-    "Leuven": 58,
-    "Maastricht": 59,
-    "Rotterdam": 56,
-    "Tilburg": 56,
-    "Utrecht": 57
+    "ATKA": 98,
+    "Antwerpen": 48,
+    "Arnhem": 98,
+    "Brussel": 60,
+    "Den Bosch": 38,
+    "Filmacademie": 98,
+    "Gent": 44,
+    "Leuven": 46,
+    "Maastricht": 43,
+    "Rotterdam": 53,
+    "Tilburg": 41,
+    "Utrecht": 62
   }
 }
