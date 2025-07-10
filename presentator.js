@@ -1,5 +1,4 @@
-const DATA_PATH = 'punten.json';
-
+const DATA_PATH = 'https://Krent04.github.io/puntentellingtheasong14523egfbcfjADF/punten.json';
 let data;
 let slides = [];
 let currentSlide = 0;
